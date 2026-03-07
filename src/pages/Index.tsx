@@ -12,40 +12,65 @@ import gmImg from "@/assets/gm.jpg";
 import cycloidalImg from "@/assets/cycloidal-actuator.jpg";
 import pancakeImg from "@/assets/pancake-printer.jpg";
 
+// ─── Free Time photos ────────────────────────────────────────────────────────
+// To add your own photos:
+// 1. Create the folder:  src/assets/freetime/
+// 2. Drop your images in there
+// 3. Import them here like:  import ft1 from "@/assets/freetime/photo1.jpg";
+// 4. Add them to the freeTimePhotos array below
+const freeTimePhotos: string[] = [
+  // ft1, ft2, ft3, ...  ← list your imports here
+];
+
+// ─── Types ────────────────────────────────────────────────────────────────────
+interface ContentBlock {
+  text: string;
+  images?: string[];
+}
+
 interface EntryData {
   title: string;
   date: string;
-  description: string;
+  summary: string;
   bullets: string[];
+  blocks?: ContentBlock[];
   images: string[];
 }
 
+// ─── Data ─────────────────────────────────────────────────────────────────────
 const experiences: EntryData[] = [
   {
     title: "toyota motor manufacturing canada",
     date: "jan 2026 – apr 2026",
-    description:
-      "Manufacturing engineering co-op at Toyota's Cambridge, Ontario plant working on the RAV4 and Lexus lines.",
+    summary: "engineering analyst co-op at toyota's cambridge, ontario plant.",
     bullets: [
-      "Designed and implemented fixture improvements for body weld shop, reducing cycle time by 8%",
-      "Conducted root cause analysis on assembly defects using Toyota Production System (TPS) principles",
-      "Created SolidWorks models and drawings for custom tooling used on the production floor",
-      "Collaborated with cross-functional teams to implement kaizen improvements",
+      "led a tbp-driven continuous improvement project targeting shellbody sealer vision system downtime, reducing coherix-related equipment fault time by approximately 70%. applied structured problem-solving to identify root causes and presented results to senior management.",
+      "directed integration of a torque gun system to accommodate two vehicle models with different requirements. coordinated between production, maintenance, contractors, and vendors while overseeing weekend trial runs and commissioning involving plc logic and system validation.",
+      "audited and optimized weld scheduling parameters to reduce weld spatter, eliminate weld separation defects, and decrease welding tip replacement frequency — contributing to estimated annual cost and material savings.",
+      "conducted time studies for overcycle processes and implemented improvements that reduced unnecessary robot movement and increased process catch-up capability.",
     ],
     images: [toyotaImg],
+    blocks: [
+      // Add detailed project blocks here when ready. Example:
+      // {
+      //   text: "sealer vision system: detailed breakdown of the coherix fault analysis...",
+      //   images: [sealerImg],
+      // },
+    ],
   },
   {
     title: "general motors",
     date: "may 2025 – aug 2025",
-    description:
-      "Product engineering intern at GM's EV battery division working on next-generation Ultium platform.",
+    summary: "industrial engineering co-op at gm's oshawa assembly plant on the chevrolet silverado line.",
     bullets: [
-      "Performed FEA simulations in ANSYS on battery enclosure components for crash and thermal loading",
-      "Supported DFMEA and DVP&R documentation for new battery module designs",
-      "Developed Python scripts to automate test data post-processing, saving 10+ hours per week",
-      "Participated in design reviews and prototype validation testing",
+      "led a continuous improvement initiative eliminating production inefficiencies through root cause analysis and cross-functional collaboration — reduced job cycle times by up to 11.8% and eliminated significant line downtime, increasing silverado throughput.",
+      "conducted time studies and redesigned standardized work across 30+ stations using lean manufacturing principles, reducing wasted movement and ergonomic risks.",
+      "updated 10,000+ sqft of factory layout in autocad, delivering precise standardized floor plans that improved cross-functional coordination.",
+      "attended current and future product design review meetings, connecting design intent with real-world assembly outcomes through practical dfma understanding.",
+      "developed an excel-based readiness document mapping job elements to option codes, tooling, part numbers, and rack sizes — improving efficiency of plant floor changeovers.",
     ],
     images: [gmImg],
+    blocks: [],
   },
 ];
 
@@ -53,30 +78,29 @@ const projects: EntryData[] = [
   {
     title: "internal cycloidal actuator",
     date: "2024",
-    description:
-      "Designed and built a compact cycloidal speed reducer for use in robotic joint actuators.",
+    summary: "engineered a compact 7:1 cycloidal actuator for dynamic robotic joints at low cost.",
     bullets: [
-      "Modeled the full cycloidal drive assembly in SolidWorks with parametric gear profiles",
-      "Machined the eccentric shaft and output disc on a manual lathe and CNC mill",
-      "Achieved a 30:1 reduction ratio in a package under 80mm diameter",
-      "3D printed prototype housings for rapid iteration before final aluminum machining",
+      "engineered a compact 7:1 cycloidal actuator for dynamic robotic joints at low cost.",
+      "performed iterative design on gear and housing tolerances to reduce backlash while preserving backdrivability and achieving smooth, reliable motion.",
     ],
     images: [cycloidalImg],
+    blocks: [],
   },
   {
     title: "pancake printer",
     date: "2024",
-    description:
-      "Built an automated pancake batter dispenser that prints custom shapes onto a griddle using G-code.",
+    summary: "built a functional 2d gantry pancake printer integrating tetrix structural components, lego ev3 motors, and custom 3d-printed adapters.",
     bullets: [
-      "Designed a 2-axis CNC gantry system using 3D printed parts, stepper motors, and GT2 belts",
-      "Developed Arduino firmware to interpret simplified G-code for batter extrusion paths",
-      "Integrated a peristaltic pump for precise batter flow control",
-      "Created a Python GUI for converting images to printable toolpaths",
+      "built a functional 2d gantry pancake printer integrating tetrix structural components, lego ev3 motors, and custom 3d-printed adapters.",
+      "designed a cad assembly in solidworks, ensuring mechanical fitments and reducing prototyping time.",
+      "programmed motion routines in c++, achieving precise, synchronized xy motion for accurate batter extrusion.",
     ],
     images: [pancakeImg],
+    blocks: [],
   },
 ];
+
+// ─── Sub-components ───────────────────────────────────────────────────────────
 
 const EntryRow = ({
   entry,
@@ -89,19 +113,83 @@ const EntryRow = ({
     onClick={onClick}
     className="flex justify-between w-full text-left group cursor-pointer"
   >
-    <span className="font-semibold group-hover:text-accent-foreground transition-colors border-b border-transparent group-hover:border-muted-foreground/40">
+    <span className="font-semibold group-hover:text-accent-foreground transition-colors border-b border-transparent group-hover:border-muted-foreground/40 flex items-center gap-1">
       {entry.title}
+      <span className="text-muted-foreground/50 group-hover:text-muted-foreground transition-colors ml-1">›</span>
     </span>
     <span className="text-muted-foreground shrink-0 ml-4">{entry.date}</span>
   </button>
 );
 
+const PhotoCarousel = ({ photos }: { photos: string[] }) => {
+  const [index, setIndex] = useState(0);
+
+  if (photos.length === 0) {
+    return (
+      <p className="text-muted-foreground text-sm text-center py-10">
+        no photos yet — add them to src/assets/freetime/ and import in index.tsx
+      </p>
+    );
+  }
+
+  return (
+    <div className="space-y-4">
+      <div className="relative">
+        <img
+          src={photos[index]}
+          alt={`free time ${index + 1}`}
+          className="w-full rounded-md border border-border object-cover max-h-[60vh]"
+        />
+        {photos.length > 1 && (
+          <>
+            <button
+              onClick={() => setIndex((i) => (i - 1 + photos.length) % photos.length)}
+              className="absolute left-2 top-1/2 -translate-y-1/2 bg-background/80 border border-border rounded px-2 py-1 text-xs hover:bg-muted transition-colors"
+            >
+              ‹
+            </button>
+            <button
+              onClick={() => setIndex((i) => (i + 1) % photos.length)}
+              className="absolute right-2 top-1/2 -translate-y-1/2 bg-background/80 border border-border rounded px-2 py-1 text-xs hover:bg-muted transition-colors"
+            >
+              ›
+            </button>
+          </>
+        )}
+      </div>
+      {photos.length > 1 && (
+        <div className="flex gap-2 overflow-x-auto pb-1">
+          {photos.map((src, i) => (
+            <button key={i} onClick={() => setIndex(i)} className="shrink-0">
+              <img
+                src={src}
+                alt={`thumb ${i}`}
+                className={`h-14 w-14 object-cover rounded border transition-all ${
+                  i === index
+                    ? "border-foreground opacity-100"
+                    : "border-border opacity-50 hover:opacity-80"
+                }`}
+              />
+            </button>
+          ))}
+        </div>
+      )}
+      <p className="text-center text-muted-foreground text-xs">
+        {index + 1} / {photos.length}
+      </p>
+    </div>
+  );
+};
+
+// ─── Main Page ────────────────────────────────────────────────────────────────
 const Index = () => {
   const [selected, setSelected] = useState<EntryData | null>(null);
+  const [freeTimeOpen, setFreeTimeOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-background text-foreground flex justify-center py-16 px-6">
       <div className="w-full max-w-3xl space-y-14 font-mono text-sm lowercase">
+
         {/* Header */}
         <section className="space-y-1">
           <h1 className="text-base font-bold">nathan ma</h1>
@@ -136,8 +224,22 @@ const Index = () => {
           <div className="space-y-1 text-muted-foreground">
             <p>software: solidworks, nx, autocad, catia 3dx, ansys, excel</p>
             <p>programming: python, c++, matlab, arduino, robotc, latex</p>
+            <p>documentation: mechanical engineering drawings, report writing, gd&t, gantt charts</p>
             <p>prototyping: machining, 3d printing, laser cutting, soldering</p>
           </div>
+        </section>
+
+        {/* Free Time */}
+        <section>
+          <button
+            onClick={() => setFreeTimeOpen(true)}
+            className="flex items-center gap-1 group cursor-pointer"
+          >
+            <h2 className="text-base font-bold group-hover:text-accent-foreground transition-colors">
+              free time
+            </h2>
+            <span className="text-muted-foreground/50 group-hover:text-muted-foreground transition-colors ml-1">›</span>
+          </button>
         </section>
 
         {/* Contact */}
@@ -149,12 +251,12 @@ const Index = () => {
             <a href="https://linkedin.com/in/nathanma0" className="hover:underline">linkedin.com/in/nathanma0</a>
           </p>
           <p className="text-muted-foreground">
-            <a href="mailto:n28ma@uwaterloo.ca" className="hover:underline">n28ma@uwaterloo.ca</a>
+            <a href="mailto:n23ma@uwaterloo.ca" className="hover:underline">n23ma@uwaterloo.ca</a>
           </p>
         </section>
       </div>
 
-      {/* Detail Dialog */}
+      {/* ── Experience / Project Detail Dialog ── */}
       <Dialog open={!!selected} onOpenChange={(open) => !open && setSelected(null)}>
         <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto font-mono lowercase bg-background border-border">
           {selected && (
@@ -169,7 +271,7 @@ const Index = () => {
               </DialogHeader>
 
               <div className="space-y-6 mt-2">
-                <p className="text-foreground text-sm">{selected.description}</p>
+                <p className="text-foreground text-sm">{selected.summary}</p>
 
                 <ul className="space-y-2 text-sm text-muted-foreground list-disc list-inside">
                   {selected.bullets.map((b, i) => (
@@ -186,9 +288,44 @@ const Index = () => {
                     loading="lazy"
                   />
                 ))}
+
+                {selected.blocks && selected.blocks.length > 0 && (
+                  <div className="space-y-8 border-t border-border pt-6">
+                    {selected.blocks.map((block, i) => (
+                      <div key={i} className="space-y-4">
+                        <p className="text-sm text-foreground/80">{block.text}</p>
+                        {block.images &&
+                          block.images.map((src, j) => (
+                            <img
+                              key={j}
+                              src={src}
+                              alt={`${selected.title} detail ${i}-${j}`}
+                              className="w-full rounded-md border border-border"
+                              loading="lazy"
+                            />
+                          ))}
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             </>
           )}
+        </DialogContent>
+      </Dialog>
+
+      {/* ── Free Time Photo Dialog ── */}
+      <Dialog open={freeTimeOpen} onOpenChange={setFreeTimeOpen}>
+        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto font-mono lowercase bg-background border-border">
+          <DialogHeader>
+            <DialogTitle className="text-foreground font-bold text-lg">free time</DialogTitle>
+            <DialogDescription className="text-muted-foreground">
+              life outside the shop
+            </DialogDescription>
+          </DialogHeader>
+          <div className="mt-4">
+            <PhotoCarousel photos={freeTimePhotos} />
+          </div>
         </DialogContent>
       </Dialog>
     </div>
