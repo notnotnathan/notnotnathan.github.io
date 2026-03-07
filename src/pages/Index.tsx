@@ -252,7 +252,7 @@ const Index = () => {
             <h2 className="text-lg font-bold group-hover:text-accent-foreground transition-colors">
               free time
             </h2>
-            <span className="text-muted-foreground/50 group-hover:text-muted-foreground transition-colors ml-2 text-xs">[>]</span>
+            <span className="text-muted-foreground/50 group-hover:text-muted-foreground transition-colors ml-2 text-xs">{"[>]"}</span>
           </button>
         </section>
 
