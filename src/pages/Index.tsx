@@ -242,10 +242,9 @@ const Index = () => {
         <section className="space-y-3">
           <h2 className="text-lg font-bold">technical skills</h2>
           <div className="space-y-1 text-muted-foreground">
-            <p>software: solidworks, nx, autocad, catia 3dx, ansys, excel</p>
-            <p>programming: python, c++, matlab, arduino, robotc, latex</p>
-            <p>documentation: mechanical engineering drawings, report writing, gd&t, gantt charts</p>
-            <p>prototyping: machining, 3d printing, laser cutting, soldering</p>
+            <p>software: solidworks, nx, catia 3dx, ansys, autocad, excel</p>
+            <p>programming: python, c++, matlab, ros2, arduino</p>
+            <p>prototyping: machining, gd&t, 3d printing, laser cutting, soldering</p>
           </div>
         </section>
 
