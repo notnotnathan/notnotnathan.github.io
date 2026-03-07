@@ -11,6 +11,12 @@ import toyotaImg from "@/assets/toyota.jpg";
 import gmImg from "@/assets/gm.jpg";
 import cycloidalImg from "@/assets/cycloidal-actuator.jpg";
 import pancakeImg from "@/assets/pancake-printer.jpg";
+import ft1 from "@/assets/freetime/anglerjax.png";
+import ft2 from "@/assets/freetime/fizz.png";
+import ft3 from "@/assets/freetime/nasus.png";
+import ft4 from "@/assets/freetime/mundo.png";
+import ft5 from "@/assets/freetime/thresh.png";
+import ft6 from "@/assets/freetime/zilean.png";
 
 // ─── Free Time photos ────────────────────────────────────────────────────────
 // To add your own photos:
@@ -19,7 +25,7 @@ import pancakeImg from "@/assets/pancake-printer.jpg";
 // 3. Import them here like:  import ft1 from "@/assets/freetime/photo1.jpg";
 // 4. Add them to the freeTimePhotos array below
 const freeTimePhotos: string[] = [
-  // ft1, ft2, ft3, ...  ← list your imports here
+  ft1, ft2, ft3, ft4, ft5, ft6
 ];
 
 // ─── Types ────────────────────────────────────────────────────────────────────
