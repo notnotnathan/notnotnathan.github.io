@@ -11,13 +11,6 @@ import toyotaImg from "@/assets/toyota.jpg";
 import gmImg from "@/assets/gm.jpg";
 import cycloidalImg from "@/assets/cycloidal-actuator.jpg";
 import pancakeImg from "@/assets/pancake-printer.jpg";
-import ft1 from "@/assets/freetime/anglerjax.png";
-import ft2 from "@/assets/freetime/fizz.png";
-import ft3 from "@/assets/freetime/mundo.png";
-import ft4 from "@/assets/freetime/zilean.png";
-import ft5 from "@/assets/freetime/thresh.png";
-import ft6 from "@/assets/freetime/nasus.png";
-
 
 // ─── Free Time photos ────────────────────────────────────────────────────────
 // To add your own photos:
@@ -26,7 +19,7 @@ import ft6 from "@/assets/freetime/nasus.png";
 // 3. Import them here like:  import ft1 from "@/assets/freetime/photo1.jpg";
 // 4. Add them to the freeTimePhotos array below
 const freeTimePhotos: string[] = [
-  ft1, ft2, ft3, ft4, ft5, ft6
+  // ft1, ft2, ft3, ...  ← list your imports here
 ];
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -122,7 +115,7 @@ const EntryRow = ({
   >
     <span className="font-semibold group-hover:text-accent-foreground transition-colors border-b border-transparent group-hover:border-muted-foreground/40 flex items-center gap-1">
       {entry.title}
-      <span className="text-muted-foreground/50 group-hover:text-muted-foreground transition-colors ml-1">›</span>
+      <span className="text-muted-foreground/50 group-hover:text-muted-foreground transition-colors ml-2 text-xs">[>]</span>
     </span>
     <span className="text-muted-foreground shrink-0 ml-4">{entry.date}</span>
   </button>
@@ -139,31 +132,47 @@ const PhotoCarousel = ({ photos }: { photos: string[] }) => {
     );
   }
 
+  const prev = () => setIndex((i) => (i - 1 + photos.length) % photos.length);
+  const next = () => setIndex((i) => (i + 1) % photos.length);
+
   return (
     <div className="space-y-4">
-      <div className="relative">
+      {/* Main image — natural aspect ratio, no cropping */}
+      <div className="relative group">
         <img
           src={photos[index]}
           alt={`free time ${index + 1}`}
-          className="w-full rounded-md border border-border object-cover max-h-[60vh]"
+          className="w-full rounded-md border border-border"
+          style={{ display: "block", height: "auto" }}
         />
+
+        {/* Prev / Next arrows — only show if multiple photos */}
         {photos.length > 1 && (
           <>
             <button
-              onClick={() => setIndex((i) => (i - 1 + photos.length) % photos.length)}
-              className="absolute left-2 top-1/2 -translate-y-1/2 bg-background/80 border border-border rounded px-2 py-1 text-xs hover:bg-muted transition-colors"
+              onClick={prev}
+              className="absolute left-2 top-1/2 -translate-y-1/2 bg-background/80 border border-border rounded px-2 py-1 text-sm hover:bg-muted transition-colors opacity-0 group-hover:opacity-100"
             >
               ‹
             </button>
             <button
-              onClick={() => setIndex((i) => (i + 1) % photos.length)}
-              className="absolute right-2 top-1/2 -translate-y-1/2 bg-background/80 border border-border rounded px-2 py-1 text-xs hover:bg-muted transition-colors"
+              onClick={next}
+              className="absolute right-2 top-1/2 -translate-y-1/2 bg-background/80 border border-border rounded px-2 py-1 text-sm hover:bg-muted transition-colors opacity-0 group-hover:opacity-100"
             >
               ›
             </button>
           </>
         )}
       </div>
+
+      {/* Counter */}
+      {photos.length > 1 && (
+        <p className="text-center text-muted-foreground text-xs">
+          {index + 1} / {photos.length}
+        </p>
+      )}
+
+      {/* Thumbnail strip — natural aspect ratio thumbnails */}
       {photos.length > 1 && (
         <div className="flex gap-2 overflow-x-auto pb-1">
           {photos.map((src, i) => (
@@ -171,19 +180,17 @@ const PhotoCarousel = ({ photos }: { photos: string[] }) => {
               <img
                 src={src}
                 alt={`thumb ${i}`}
-                className={`h-14 w-14 object-cover rounded border transition-all ${
+                style={{ height: "56px", width: "auto", display: "block" }}
+                className={`rounded border transition-all ${
                   i === index
                     ? "border-foreground opacity-100"
-                    : "border-border opacity-50 hover:opacity-80"
+                    : "border-border opacity-40 hover:opacity-80"
                 }`}
               />
             </button>
           ))}
         </div>
       )}
-      <p className="text-center text-muted-foreground text-xs">
-        {index + 1} / {photos.length}
-      </p>
     </div>
   );
 };
@@ -195,11 +202,11 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background text-foreground flex justify-center py-16 px-6">
-      <div className="w-full max-w-3xl space-y-14 font-mono text-sm lowercase">
+      <div className="w-full max-w-3xl space-y-14 font-mono text-base lowercase">
 
         {/* Header */}
         <section className="space-y-1">
-          <h1 className="text-base font-bold">nathan ma</h1>
+          <h1 className="text-lg font-bold">nathan ma</h1>
           <p className="font-semibold">mechanical engineering</p>
           <p className="font-semibold">option in artificial intelligence</p>
           <p className="font-semibold">university of waterloo</p>
@@ -207,7 +214,7 @@ const Index = () => {
 
         {/* Experience */}
         <section className="space-y-3">
-          <h2 className="text-base font-bold">experience</h2>
+          <h2 className="text-lg font-bold">experience</h2>
           <div className="space-y-1">
             {experiences.map((e) => (
               <EntryRow key={e.title} entry={e} onClick={() => setSelected(e)} />
@@ -217,7 +224,7 @@ const Index = () => {
 
         {/* Projects */}
         <section className="space-y-3">
-          <h2 className="text-base font-bold">projects</h2>
+          <h2 className="text-lg font-bold">projects</h2>
           <div className="space-y-1">
             {projects.map((p) => (
               <EntryRow key={p.title} entry={p} onClick={() => setSelected(p)} />
@@ -227,7 +234,7 @@ const Index = () => {
 
         {/* Technical Skills */}
         <section className="space-y-3">
-          <h2 className="text-base font-bold">technical skills</h2>
+          <h2 className="text-lg font-bold">technical skills</h2>
           <div className="space-y-1 text-muted-foreground">
             <p>software: solidworks, nx, autocad, catia 3dx, ansys, excel</p>
             <p>programming: python, c++, matlab, arduino, robotc, latex</p>
@@ -242,10 +249,10 @@ const Index = () => {
             onClick={() => setFreeTimeOpen(true)}
             className="flex items-center gap-1 group cursor-pointer"
           >
-            <h2 className="text-base font-bold group-hover:text-accent-foreground transition-colors">
+            <h2 className="text-lg font-bold group-hover:text-accent-foreground transition-colors">
               free time
             </h2>
-            <span className="text-muted-foreground/50 group-hover:text-muted-foreground transition-colors ml-1">›</span>
+            <span className="text-muted-foreground/50 group-hover:text-muted-foreground transition-colors ml-2 text-xs">[>]</span>
           </button>
         </section>
 
@@ -278,9 +285,9 @@ const Index = () => {
               </DialogHeader>
 
               <div className="space-y-6 mt-2">
-                <p className="text-foreground text-sm">{selected.summary}</p>
+                <p className="text-foreground text-base">{selected.summary}</p>
 
-                <ul className="space-y-2 text-sm text-muted-foreground list-disc list-inside">
+                <ul className="space-y-2 text-base text-muted-foreground list-disc list-inside">
                   {selected.bullets.map((b, i) => (
                     <li key={i}>{b}</li>
                   ))}
@@ -300,7 +307,7 @@ const Index = () => {
                   <div className="space-y-8 border-t border-border pt-6">
                     {selected.blocks.map((block, i) => (
                       <div key={i} className="space-y-4">
-                        <p className="text-sm text-foreground/80">{block.text}</p>
+                        <p className="text-base text-foreground/80">{block.text}</p>
                         {block.images &&
                           block.images.map((src, j) => (
                             <img
