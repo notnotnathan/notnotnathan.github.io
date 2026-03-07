@@ -115,7 +115,7 @@ const EntryRow = ({
   >
     <span className="font-semibold group-hover:text-accent-foreground transition-colors border-b border-transparent group-hover:border-muted-foreground/40 flex items-center gap-1">
       {entry.title}
-      <span className="text-muted-foreground/50 group-hover:text-muted-foreground transition-colors ml-2 text-xs">[>]</span>
+      <span className="text-muted-foreground/50 group-hover:text-muted-foreground transition-colors ml-2 text-xs">{"[>]"}</span>
     </span>
     <span className="text-muted-foreground shrink-0 ml-4">{entry.date}</span>
   </button>
