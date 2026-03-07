@@ -18,12 +18,6 @@ import ft4 from "@/assets/freetime/mundo.png";
 import ft5 from "@/assets/freetime/thresh.png";
 import ft6 from "@/assets/freetime/zilean.png";
 
-// ─── Free Time photos ────────────────────────────────────────────────────────
-// To add your own photos:
-// 1. Create the folder:  src/assets/freetime/
-// 2. Drop your images in there
-// 3. Import them here like:  import ft1 from "@/assets/freetime/photo1.jpg";
-// 4. Add them to the freeTimePhotos array below
 const freeTimePhotos: string[] = [
   ft1, ft2, ft3, ft4, ft5, ft6
 ];
@@ -56,13 +50,7 @@ const experiences: EntryData[] = [
       "conducted time studies for overcycle processes and implemented improvements that reduced unnecessary robot movement and increased process catch-up capability.",
     ],
     images: [toyotaImg],
-    blocks: [
-      // Add detailed project blocks here when ready. Example:
-      // {
-      //   text: "sealer vision system: detailed breakdown of the coherix fault analysis...",
-      //   images: [sealerImg],
-      // },
-    ],
+    blocks: [],
   },
   {
     title: "general motors",
@@ -143,16 +131,17 @@ const PhotoCarousel = ({ photos }: { photos: string[] }) => {
 
   return (
     <div className="space-y-4">
-      {/* Main image — natural aspect ratio, no cropping */}
-      <div className="relative group">
+      {/* Fixed-height container — image fits inside, no layout shift */}
+      <div
+        className="relative group rounded-md border border-border overflow-hidden"
+        style={{ height: "420px", backgroundColor: "hsl(var(--background))" }}
+      >
         <img
           src={photos[index]}
           alt={`free time ${index + 1}`}
-          className="w-full rounded-md border border-border"
-          style={{ display: "block", height: "auto" }}
+          style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }}
         />
 
-        {/* Prev / Next arrows — only show if multiple photos */}
         {photos.length > 1 && (
           <>
             <button
@@ -277,7 +266,7 @@ const Index = () => {
 
       {/* ── Experience / Project Detail Dialog ── */}
       <Dialog open={!!selected} onOpenChange={(open) => !open && setSelected(null)}>
-        <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto font-mono lowercase bg-background border-border">
+        <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto scrollbar-thin font-mono lowercase bg-background border-border">
           {selected && (
             <>
               <DialogHeader>
@@ -335,7 +324,7 @@ const Index = () => {
 
       {/* ── Free Time Photo Dialog ── */}
       <Dialog open={freeTimeOpen} onOpenChange={setFreeTimeOpen}>
-        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto font-mono lowercase bg-background border-border">
+        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto scrollbar-thin font-mono lowercase bg-background border-border">
           <DialogHeader>
             <DialogTitle className="text-foreground font-bold text-lg">free time</DialogTitle>
             <DialogDescription className="text-muted-foreground">
