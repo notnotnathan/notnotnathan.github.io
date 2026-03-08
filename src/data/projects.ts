@@ -3,7 +3,7 @@
 //
 // Block types:
 //   { type: "text", content: "your paragraph here" }
-//   { type: "images", images: [img1, img2, img3] }
+//   { type: "images", images: [img1, img2], height: 300 }  — height defaults to 400
 
 import cycloidalImg from "@/assets/cycloidal-actuator.jpg";
 import pancakeImg from "@/assets/pancake-printer.jpg";
@@ -13,7 +13,7 @@ import ft4 from "@/assets/freetime/4.jpg";
 
 export type Block =
   | { type: "text"; content: string }
-  | { type: "images"; images: string[] };
+  | { type: "images"; images: string[]; height?: number };
 
 export interface ProjectData {
   id: string;
