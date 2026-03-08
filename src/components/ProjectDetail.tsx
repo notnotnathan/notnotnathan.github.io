@@ -8,24 +8,21 @@ const ImageBlock = ({ images }: { images: string[] }) => {
   const ROW_HEIGHT = 400;
 
   return (
-    <div className="flex gap-2 w-full items-end" style={{ maxHeight: ROW_HEIGHT }}>
+    <div className="flex gap-2 w-full overflow-hidden" style={{ maxHeight: ROW_HEIGHT }}>
       {images.map((src, i) => (
         <div
           key={i}
           className="overflow-hidden rounded-md border border-border"
           style={{
-            // Each image is auto-width based on its natural aspect ratio,
-            // capped at ROW_HEIGHT tall. flex-shrink allows narrow ones to stay narrow.
             height: ROW_HEIGHT,
-            flex: "0 0 auto",
-            maxWidth: "100%",
+            flex: "1 1 0",
+            minWidth: 0,
           }}
         >
           <img
             src={src}
             alt=""
-            className="h-full w-auto object-cover rounded-md"
-            style={{ maxHeight: ROW_HEIGHT }}
+            className="w-full h-full object-cover"
             loading="lazy"
           />
         </div>
@@ -39,7 +36,7 @@ const ImageBlock = ({ images }: { images: string[] }) => {
 // Left column text stays within its column even if it overflows the image height.
 // Bullets never wrap under the image.
 const ProjectDetail = ({ project }: { project: ProjectData }) => {
-  const COVER_SIZE = 300;
+  const COVER_SIZE = 250;
 
   return (
     <div className="space-y-6 mt-2">
