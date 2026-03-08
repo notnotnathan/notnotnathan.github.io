@@ -78,8 +78,8 @@ export const projects: ProjectData[] = [
     ],
   },
   {
-    id: "cycloidal-actuator dsafdslfjdsa;f",
-    title: "internal cycloidal actuator",
+    id: "cycloidal-actuator",
+    title: "internal cycloidal actuatorllllllllllllllllllllllll",
     date: "2025",
     featured: false,
     coverImage: ft3,
