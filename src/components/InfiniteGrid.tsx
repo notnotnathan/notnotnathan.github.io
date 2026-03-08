@@ -3,9 +3,15 @@ import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import { useImagePreloader } from '@/hooks/useImagePreloader'
 
 const SPRING_CONFIG = { damping: 40, stiffness: 200, mass: 0.5 }
-const MOBILE_SPRING = { damping: 80, stiffness: 1500, mass: 0.2 } // responsive but not instant
+const MOBILE_SPRING = { damping: 80, stiffness: 2000, mass: 0.1 }
 const SCALE_SPRING = { damping: 25, stiffness: 300, mass: 0.2 }
 const TIER1_COUNT = 20
+
+// Minimum grid dimensions — large enough that scrolling feels infinite
+// before the wrap becomes obvious. 20×20 = 400 cells for 41 photos → ~9-10 repeats
+// spread across a huge area. Performance cost is just DOM nodes, images are already cached.
+const MIN_GRID_COLS = 20
+const MIN_GRID_ROWS = 20
 
 function getGridMetrics(containerSize: { width: number; height: number }) {
   const shortSide = Math.min(containerSize.width, containerSize.height)
@@ -25,6 +31,46 @@ const shuffleArray = <T,>(array: T[]): T[] => {
     ;[shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]
   }
   return shuffled
+}
+
+// Fill a grid such that every photo appears roughly equally,
+// and no photo repeats within a 3×3 neighbourhood.
+function buildGrid(rows: number, cols: number, photos: string[]): string[][] {
+  const grid: (string | null)[][] = Array.from({ length: rows }, () => new Array(cols).fill(null))
+
+  // Build a round-robin queue so every image is used before any repeats
+  const queue: string[] = []
+  while (queue.length < rows * cols) {
+    queue.push(...shuffleArray(photos))
+  }
+  let qi = 0
+
+  for (let r = 0; r < rows; r++) {
+    for (let c = 0; c < cols; c++) {
+      const forbidden = new Set<string>()
+      for (let dr = -2; dr <= 2; dr++) {
+        for (let dc = -2; dc <= 2; dc++) {
+          if (dr === 0 && dc === 0) continue
+          const nr = (r + dr + rows) % rows
+          const nc = (c + dc + cols) % cols
+          if (grid[nr][nc] !== null) forbidden.add(grid[nr][nc]!)
+        }
+      }
+
+      // Try next items from queue until we find one not forbidden
+      let attempts = 0
+      let chosen = queue[qi % queue.length]
+      while (forbidden.has(chosen) && attempts < queue.length) {
+        qi++
+        attempts++
+        chosen = queue[qi % queue.length]
+      }
+      grid[r][c] = chosen
+      qi++
+    }
+  }
+
+  return grid as string[][]
 }
 
 interface GridItemData {
@@ -125,7 +171,6 @@ const InfiniteGrid = ({ photos, width, height }: InfiniteGridProps) => {
   const x = useSpring(rawX, isTouchDevice ? MOBILE_SPRING : SPRING_CONFIG)
   const y = useSpring(rawY, isTouchDevice ? MOBILE_SPRING : SPRING_CONFIG)
 
-  // Track mouse relative to the grid container — fixes the hover offset
   const mouseX = useMotionValue(-9999)
   const mouseY = useMotionValue(-9999)
 
@@ -136,32 +181,16 @@ const InfiniteGrid = ({ photos, width, height }: InfiniteGridProps) => {
 
   const gridConfig = useMemo(() => {
     const { totalCell } = metrics
-    const cols = Math.ceil(width / totalCell) + 4
-    const rows = Math.ceil(height / totalCell) + 4
+    // Use whichever is bigger: enough to fill the screen, or the minimum for variety
+    const cols = Math.max(MIN_GRID_COLS, Math.ceil(width / totalCell) + 4)
+    const rows = Math.max(MIN_GRID_ROWS, Math.ceil(height / totalCell) + 4)
+
+    const grid = buildGrid(rows, cols, shuffledImages)
     const items: GridItemData[] = []
 
-    const grid: (string | null)[][] = Array.from({ length: rows }, () => new Array(cols).fill(null))
-
     for (let r = 0; r < rows; r++) {
       for (let c = 0; c < cols; c++) {
-        const forbidden = new Set<string>()
-        for (let dr = -2; dr <= 2; dr++) {
-          for (let dc = -2; dc <= 2; dc++) {
-            if (dr === 0 && dc === 0) continue
-            const nr = (r + dr + rows) % rows
-            const nc = (c + dc + cols) % cols
-            if (grid[nr][nc] !== null) forbidden.add(grid[nr][nc]!)
-          }
-        }
-        const candidates = shuffledImages.filter(img => !forbidden.has(img))
-        const pool = candidates.length > 0 ? candidates : shuffledImages
-        grid[r][c] = pool[Math.floor(Math.random() * pool.length)]
-      }
-    }
-
-    for (let r = 0; r < rows; r++) {
-      for (let c = 0; c < cols; c++) {
-        items.push({ id: `${r}-${c}`, relX: c - 1, relY: r - 1, imgUrl: grid[r][c]! })
+        items.push({ id: `${r}-${c}`, relX: c - 1, relY: r - 1, imgUrl: grid[r][c] })
       }
     }
     return { items, cols, rows, ...metrics }
