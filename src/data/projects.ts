@@ -79,7 +79,7 @@ export const projects: ProjectData[] = [
   },
   {
     id: "cycloidal-actuator",
-    title: "internal cycloidal actuatorllllllllllllllllllllllll",
+    title: "gravity compensation",
     date: "2025",
     featured: false,
     coverImage: ft3,
@@ -97,7 +97,7 @@ export const projects: ProjectData[] = [
   },
   {
     id: "cycloidal-actuatoradsfdsafdsafdsafdafdsafdsafdsfdsafsadf",
-    title: "internal cycloidal actuator",
+    title: "quadrupedal robot",
     date: "2025",
     featured: true,
     coverImage: cycloidalImg,
@@ -115,7 +115,7 @@ export const projects: ProjectData[] = [
   },
   {
     id: "cycloidal-actuator",
-    title: "internal cycloidal actuator",
+    title: "Water Rocket Parachute Deployment Device",
     date: "2025",
     featured: true,
     coverImage: cycloidalImg,
