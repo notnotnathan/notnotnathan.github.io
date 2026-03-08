@@ -11,7 +11,7 @@ const useIsMobile = () => {
   return isMobile;
 };
 
-const ImageBlock = ({ images }: { images: string[] }) => {
+const ImageBlock = ({ images, height = 400, gap = 30 }: { images: string[]; height?: number; gap?: number }) => {
   const isMobile = useIsMobile();
   if (images.length === 0) return null;
 
@@ -26,14 +26,14 @@ const ImageBlock = ({ images }: { images: string[] }) => {
   }
 
   return (
-    <div className="flex justify-center" style={{ gap: 30 }}>
+    <div className="flex justify-center" style={{ gap }}>
       {images.map((src, i) => (
         <img
           key={i}
           src={src}
           alt=""
           className="rounded-md border border-border block"
-          style={{ height: 400, width: "auto" }}
+          style={{ height, width: "auto" }}
           loading="lazy"
         />
       ))}
@@ -98,7 +98,7 @@ const ProjectDetail = ({ project }: { project: ProjectData }) => {
               );
             }
             if (block.type === "images") {
-              return <ImageBlock key={i} images={block.images} />;
+              return <ImageBlock key={i} images={block.images} height={block.height} gap={block.gap} />;
             }
             return null;
           })}
