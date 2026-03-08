@@ -57,20 +57,21 @@ const ImageBlock = ({ images, mode = "width" }: { images: string[]; mode?: "heig
     );
   }
 
-  // width mode: all images same height, natural widths, scaled to fit row
+  // width mode: equal heights, natural aspect ratio, slight crop to fill row
   return (
-    <div className="flex gap-2 w-full overflow-hidden" style={{ height: DEFAULT_MAX_HEIGHT }}>
+    <div className="flex gap-2 w-full" style={{ height: DEFAULT_MAX_HEIGHT }}>
       {images.map((src, i) => (
         <img
           key={i}
           src={src}
           alt=""
-          className="rounded-md border border-border min-w-0 flex-shrink"
+          className="rounded-md border border-border"
           style={{
             height: DEFAULT_MAX_HEIGHT,
             width: "auto",
-            maxWidth: `${Math.floor(100 / images.length)}%`,
-            objectFit: "contain",
+            flex: "1 1 0",
+            minWidth: 0,
+            objectFit: "cover",
           }}
           loading="lazy"
         />
