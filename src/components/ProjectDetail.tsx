@@ -54,11 +54,18 @@ const ImageBlock = ({ images }: { images: string[] }) => {
 
   if (images.length === 0) return null;
 
+  // Mobile: full width, stack vertically, natural aspect ratio
   if (isMobile) {
     return (
-      <div className="flex flex-col gap-2 w-full">
+      <div className="flex flex-col gap-3 w-full">
         {images.map((src, i) => (
-          <img key={i} src={src} alt="" className="w-full rounded-md border border-border block" loading="lazy" />
+          <img
+            key={i}
+            src={src}
+            alt=""
+            className="w-full rounded-md border border-border block"
+            loading="lazy"
+          />
         ))}
       </div>
     );
@@ -117,25 +124,47 @@ const ProjectDetail = ({ project }: { project: ProjectData }) => {
 
   return (
     <div className="space-y-6 mt-2">
-      <div className="grid gap-4" style={{ gridTemplateColumns: `1fr ${COVER_SIZE}px` }}>
-        <div className="space-y-4 min-w-0">
-          <p className="text-foreground text-base">{project.summary}</p>
-          <ul className="space-y-2 text-base text-muted-foreground list-disc list-inside">
+      {isMobile ? (
+        // Mobile: summary + cover side by side, bullets full width below
+        <div className="space-y-4">
+          <div className="flex gap-3 items-start">
+            <p className="text-foreground text-base font-semibold flex-1 min-w-0">{project.summary}</p>
+            <img
+              src={project.coverImage}
+              alt={project.title}
+              className="rounded-md border border-border object-cover shrink-0"
+              style={{ width: COVER_SIZE, height: COVER_SIZE }}
+              loading="lazy"
+            />
+          </div>
+          <ul className="space-y-2 text-base text-muted-foreground list-disc list-inside w-full">
             {project.bullets.map((b, i) => (
               <li key={i}>{b}</li>
             ))}
           </ul>
         </div>
-        <div className="shrink-0">
-          <img
-            src={project.coverImage}
-            alt={project.title}
-            className="rounded-md border border-border object-cover"
-            style={{ width: COVER_SIZE, height: COVER_SIZE }}
-            loading="lazy"
-          />
+      ) : (
+        // Desktop: two-column grid, bullets left, cover right
+        <div className="grid gap-4" style={{ gridTemplateColumns: `1fr ${COVER_SIZE}px` }}>
+          <div className="space-y-4 min-w-0">
+            <p className="text-foreground text-base">{project.summary}</p>
+            <ul className="space-y-2 text-base text-muted-foreground list-disc list-inside">
+              {project.bullets.map((b, i) => (
+                <li key={i}>{b}</li>
+              ))}
+            </ul>
+          </div>
+          <div className="shrink-0">
+            <img
+              src={project.coverImage}
+              alt={project.title}
+              className="rounded-md border border-border object-cover"
+              style={{ width: COVER_SIZE, height: COVER_SIZE }}
+              loading="lazy"
+            />
+          </div>
         </div>
-      </div>
+      )}
 
       {project.blocks && project.blocks.length > 0 && (
         <div className="space-y-6 border-t border-border pt-6">
