@@ -1,48 +1,91 @@
+import { useEffect, useState } from "react";
 import { ProjectData, Block } from "@/data/projects";
 
-// ─── Image block ──────────────────────────────────────────────────────────────
-// Multiple images sit side by side at the same height (400px max).
-// Narrow/portrait images are capped — they won't stretch to fill.
-const ImageBlock = ({ images }: { images: string[] }) => {
-  if (images.length === 0) return null;
-  const ROW_HEIGHT = 400;
+const useIsMobile = () => {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 640);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+  return isMobile;
+};
 
-  return (
-    <div className="flex gap-2 w-full overflow-hidden" style={{ maxHeight: ROW_HEIGHT }}>
-      {images.map((src, i) => (
-        <div
-          key={i}
-          className="overflow-hidden rounded-md border border-border"
-          style={{
-            height: ROW_HEIGHT,
-            flex: "1 1 0",
-            minWidth: 0,
-          }}
-        >
+const DEFAULT_MAX_HEIGHT = 350;
+
+const ImageBlock = ({ images, mode = "width" }: { images: string[]; mode?: "height" | "width" }) => {
+  const isMobile = useIsMobile();
+  if (images.length === 0) return null;
+
+  if (isMobile) {
+    return (
+      <div className="flex flex-col gap-2 w-full">
+        {images.map((src, i) => (
           <img
+            key={i}
             src={src}
             alt=""
-            className="w-full h-full object-cover"
+            className="w-full rounded-md border border-border"
+            style={{ display: "block" }}
             loading="lazy"
           />
-        </div>
+        ))}
+      </div>
+    );
+  }
+
+  if (mode === "height") {
+    return (
+      <div className="flex gap-2 w-full items-start flex-wrap">
+        {images.map((src, i) => (
+          <img
+            key={i}
+            src={src}
+            alt=""
+            className="rounded-md border border-border"
+            style={{
+              height: DEFAULT_MAX_HEIGHT,
+              width: "auto",
+              display: "block",
+              maxWidth: "100%",
+            }}
+            loading="lazy"
+          />
+        ))}
+      </div>
+    );
+  }
+
+  // width mode: all images same height, natural widths, scaled to fit row
+  return (
+    <div className="flex gap-2 w-full overflow-hidden" style={{ height: DEFAULT_MAX_HEIGHT }}>
+      {images.map((src, i) => (
+        <img
+          key={i}
+          src={src}
+          alt=""
+          className="rounded-md border border-border min-w-0 flex-shrink"
+          style={{
+            height: DEFAULT_MAX_HEIGHT,
+            width: "auto",
+            maxWidth: `${Math.floor(100 / images.length)}%`,
+            objectFit: "contain",
+          }}
+          loading="lazy"
+        />
       ))}
     </div>
   );
 };
 
-// ─── Project detail body ──────────────────────────────────────────────────────
-// Layout: two-column grid — left: summary + bullets, right: square cover.
-// Left column text stays within its column even if it overflows the image height.
-// Bullets never wrap under the image.
 const ProjectDetail = ({ project }: { project: ProjectData }) => {
-  const COVER_SIZE = 250;
+  const isMobile = useIsMobile();
+  const COVER_SIZE = isMobile ? Math.round(window.innerWidth * 0.42) : 250;
 
   return (
     <div className="space-y-6 mt-2">
-      {/* Header: bullets left, cover right — independent columns */}
-      <div className="grid gap-6" style={{ gridTemplateColumns: `1fr ${COVER_SIZE}px` }}>
-        {/* Left: summary + bullets — stays in this column always */}
+      <div className="grid gap-4" style={{ gridTemplateColumns: `1fr ${COVER_SIZE}px` }}>
         <div className="space-y-4 min-w-0">
           <p className="text-foreground text-base">{project.summary}</p>
           <ul className="space-y-2 text-base text-muted-foreground list-disc list-inside">
@@ -51,8 +94,6 @@ const ProjectDetail = ({ project }: { project: ProjectData }) => {
             ))}
           </ul>
         </div>
-
-        {/* Right: square cover */}
         <div className="shrink-0">
           <img
             src={project.coverImage}
@@ -64,7 +105,6 @@ const ProjectDetail = ({ project }: { project: ProjectData }) => {
         </div>
       </div>
 
-      {/* Rich content blocks below */}
       {project.blocks && project.blocks.length > 0 && (
         <div className="space-y-6 border-t border-border pt-6">
           {project.blocks.map((block: Block, i: number) => {
@@ -76,7 +116,7 @@ const ProjectDetail = ({ project }: { project: ProjectData }) => {
               );
             }
             if (block.type === "images") {
-              return <ImageBlock key={i} images={block.images} />;
+              return <ImageBlock key={i} images={block.images} mode={block.mode} />;
             }
             return null;
           })}
