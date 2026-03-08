@@ -24,7 +24,7 @@ const Portfolio = () => {
               to="/"
               className="text-muted-foreground text-sm hover:text-foreground transition-colors"
             >
-              ← back
+              home
             </Link>
           </div>
         </section>
