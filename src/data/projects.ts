@@ -3,7 +3,9 @@
 //
 // Block types:
 //   { type: "text", content: "your paragraph here" }
-//   { type: "images", images: [img1, img2, img3] }  ← all same height, side by side
+//   { type: "images", images: [img1, img2] }                 — width mode (default)
+//   { type: "images", images: [img1, img2], mode: "height" } — fixed height, natural width
+//   { type: "images", images: [img1, img2], mode: "width" }  — same height, fits row width
 
 import cycloidalImg from "@/assets/cycloidal-actuator.jpg";
 import pancakeImg from "@/assets/pancake-printer.jpg";
@@ -13,17 +15,17 @@ import ft4 from "@/assets/freetime/4.jpg";
 
 export type Block =
   | { type: "text"; content: string }
-  | { type: "images"; images: string[] };
+  | { type: "images"; images: string[]; mode?: "height" | "width" };
 
 export interface ProjectData {
   id: string;
   title: string;
   date: string;
-  featured: boolean;   // true = shows on home page, false = portfolio only
-  coverImage: string;  // square card cover + dialog cover (top-right)
-  summary: string;     // shown only when dialog is expanded
+  featured: boolean;
+  coverImage: string;
+  summary: string;
   bullets: string[];
-  blocks?: Block[];    // optional: rich content sections below the header
+  blocks?: Block[];
 }
 
 export const projects: ProjectData[] = [
@@ -40,9 +42,9 @@ export const projects: ProjectData[] = [
     ],
     blocks: [
       { type: "text", content: "lorem ipsum block one. this is the first paragraph of detail about the actuator design process, tolerances, and goals." },
-      { type: "images", images: [ft36, cycloidalImg, pancakeImg] },
+      { type: "images", images: [ft36, cycloidalImg, pancakeImg], mode: "width" },
       { type: "text", content: "lorem ipsum block two. this covers the testing phase, results, and what was learned from the iterative design process." },
-      { type: "images", images: [ft3, ft4] },
+      { type: "images", images: [ft3, ft4], mode: "width" },
     ],
   },
   {
