@@ -31,7 +31,7 @@ const Portfolio = () => {
 
         {/* Project grid — cover cards */}
         <section>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
             {projects.map((project) => (
               <button
                 key={project.id}
@@ -39,7 +39,7 @@ const Portfolio = () => {
                 className="group text-left cursor-pointer"
               >
                 {/* Cover image */}
-                <div className="w-full aspect-video overflow-hidden rounded-md border border-border mb-3">
+                <div className="w-full aspect-square overflow-hidden rounded-md border border-border mb-3">
                   {project.images[0] ? (
                     <img
                       src={project.images[0]}
@@ -64,9 +64,6 @@ const Portfolio = () => {
                   </span>
                   <span className="text-muted-foreground text-sm shrink-0">{project.date}</span>
                 </div>
-
-                {/* Summary */}
-                <p className="text-muted-foreground text-sm mt-1 line-clamp-2">{project.summary}</p>
               </button>
             ))}
           </div>
