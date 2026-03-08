@@ -17,12 +17,14 @@ export interface ProjectData {
   bullets: string[];
   blocks?: ContentBlock[];
   images: string[];  // first image is used as the portfolio cover card
+  featured: boolean;
 }
 
 export const projects: ProjectData[] = [
   {
     id: "cycloidal-actuator",
     title: "internal cycloidal actuator",
+    featured: true,
     date: "2025",
     summary: "engineered a compact 7:1 cycloidal actuator for dynamic robotic joints at low cost.",
     bullets: [
@@ -35,6 +37,7 @@ export const projects: ProjectData[] = [
   {
     id: "pancake-printer",
     title: "pancake printer",
+    featured: true,
     date: "2025",
     summary: "built a functional 2d gantry pancake printer integrating tetrix structural components, lego ev3 motors, and custom 3d-printed adapters.",
     bullets: [
@@ -48,6 +51,7 @@ export const projects: ProjectData[] = [
   {
     id: "pancake-printer",
     title: "pancake printer",
+    featured: false,
     date: "2025",
     summary: "built a functional 2d gantry pancake printer integrating tetrix structural components, lego ev3 motors, and custom 3d-printed adapters.",
     bullets: [
@@ -61,6 +65,7 @@ export const projects: ProjectData[] = [
   {
     id: "pancake-printer",
     title: "pancake printer",
+    featured: false,
     date: "2025",
     summary: "built a functional 2d gantry pancake printer integrating tetrix structural components, lego ev3 motors, and custom 3d-printed adapters.",
     bullets: [
