@@ -40,11 +40,12 @@ const useImageDimensions = (srcs: string[]) => {
 const ImageBlock = ({ images }: { images: string[] }) => {
   const isMobile = useIsMobile();
   const containerRef = useRef<HTMLDivElement>(null);
-  const [containerWidth, setContainerWidth] = useState(0);
+  const [containerWidth, setContainerWidth] = useState<number | null>(null);
   const dims = useImageDimensions(images);
 
   useEffect(() => {
     if (!containerRef.current) return;
+    setContainerWidth(containerRef.current.getBoundingClientRect().width);
     const ro = new ResizeObserver((entries) => {
       setContainerWidth(entries[0].contentRect.width);
     });
@@ -54,24 +55,17 @@ const ImageBlock = ({ images }: { images: string[] }) => {
 
   if (images.length === 0) return null;
 
-  // Mobile: full width, stack vertically, natural aspect ratio
   if (isMobile) {
     return (
       <div className="flex flex-col gap-3 w-full">
         {images.map((src, i) => (
-          <img
-            key={i}
-            src={src}
-            alt=""
-            className="w-full rounded-md border border-border block"
-            loading="lazy"
-          />
+          <img key={i} src={src} alt="" className="w-full rounded-md border border-border block" loading="lazy" />
         ))}
       </div>
     );
   }
 
-  if (!dims || containerWidth === 0) {
+  if (!dims || !containerWidth) {
     return <div ref={containerRef} className="w-full" style={{ height: MAX_HEIGHT }} />;
   }
 
@@ -94,22 +88,23 @@ const ImageBlock = ({ images }: { images: string[] }) => {
     finalGap = neededGap <= MAX_GAP ? Math.max(0, neededGap) : MAX_GAP;
   }
 
+  const h = Math.round(finalHeight);
+
   return (
     <div
       ref={containerRef}
       className="flex w-full"
-      style={{ gap: finalGap, height: Math.round(finalHeight) }}
+      style={{ gap: finalGap, height: h }}
     >
       {images.map((src, i) => {
-        const aspectRatio = dims[i].w / dims[i].h;
-        const imgWidth = Math.round(finalHeight * aspectRatio);
+        const w = Math.round(finalHeight * (dims[i].w / dims[i].h));
         return (
           <img
             key={i}
             src={src}
             alt=""
             className="rounded-md border border-border block flex-shrink-0"
-            style={{ width: imgWidth, height: Math.round(finalHeight), objectFit: "fill" }}
+            style={{ width: w, height: h }}
             loading="lazy"
           />
         );
@@ -125,7 +120,6 @@ const ProjectDetail = ({ project }: { project: ProjectData }) => {
   return (
     <div className="space-y-6 mt-2">
       {isMobile ? (
-        // Mobile: summary + cover side by side, bullets full width below
         <div className="space-y-4">
           <div className="flex gap-3 items-start">
             <p className="text-foreground text-base font-semibold flex-1 min-w-0">{project.summary}</p>
@@ -144,7 +138,6 @@ const ProjectDetail = ({ project }: { project: ProjectData }) => {
           </ul>
         </div>
       ) : (
-        // Desktop: two-column grid, bullets left, cover right
         <div className="grid gap-4" style={{ gridTemplateColumns: `1fr ${COVER_SIZE}px` }}>
           <div className="space-y-4 min-w-0">
             <p className="text-foreground text-base">{project.summary}</p>
