@@ -141,7 +141,7 @@ const experiences: EntryData[] = [
 const projects: EntryData[] = [
   {
     title: "internal cycloidal actuator",
-    date: "2024",
+    date: "2025",
     summary: "engineered a compact 7:1 cycloidal actuator for dynamic robotic joints at low cost.",
     bullets: [
       "engineered a compact 7:1 cycloidal actuator for dynamic robotic joints at low cost.",
@@ -152,7 +152,7 @@ const projects: EntryData[] = [
   },
   {
     title: "pancake printer",
-    date: "2024",
+    date: "2025",
     summary: "built a functional 2d gantry pancake printer integrating tetrix structural components, lego ev3 motors, and custom 3d-printed adapters.",
     bullets: [
       "built a functional 2d gantry pancake printer integrating tetrix structural components, lego ev3 motors, and custom 3d-printed adapters.",
