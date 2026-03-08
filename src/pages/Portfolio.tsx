@@ -27,14 +27,18 @@ const Portfolio = () => {
         </section>
 
         <section>
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+          <div
+            className="grid grid-cols-2 sm:grid-cols-3 gap-4"
+            style={{ gridTemplateRows: "auto" }}
+          >
             {projects.map((project) => (
               <button
                 key={project.id}
                 onClick={() => setSelected(project)}
-                className="group text-left cursor-pointer"
+                className="group text-left cursor-pointer grid"
+                style={{ gridRow: "span 2", gridTemplateRows: "subgrid" }}
               >
-                <div className="w-full aspect-square overflow-hidden rounded-md border border-border mb-2">
+                <div className="w-full aspect-square overflow-hidden rounded-md border border-border">
                   {project.coverImage ? (
                     <img
                       src={project.coverImage}
@@ -48,12 +52,12 @@ const Portfolio = () => {
                     </div>
                   )}
                 </div>
-                <div className="flex justify-between items-baseline gap-2">
+                <div className="flex justify-between items-start gap-2 pt-2">
                   <span className="font-semibold group-hover:text-accent-foreground transition-colors text-sm">
                     {project.title}
                     <span className="text-muted-foreground/50 group-hover:text-muted-foreground transition-colors ml-1 text-xs whitespace-nowrap">{"[>]"}</span>
                   </span>
-                  <span className="text-muted-foreground text-xs shrink-0">{project.date}</span>
+                  <span className="text-muted-foreground text-xs shrink-0 pt-0.5">{project.date}</span>
                 </div>
               </button>
             ))}
