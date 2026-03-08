@@ -136,8 +136,8 @@ const InfiniteGrid = ({ photos, width, height }: InfiniteGridProps) => {
   const gridConfig = useMemo(() => {
     const { totalCell } = metrics
     // Just enough cells to fill the visible area — keep DOM count low
-    const cols = Math.ceil(width / totalCell) + 4
-    const rows = Math.ceil(height / totalCell) + 4
+    const cols = Math.max(15, Math.ceil(width / totalCell) + 4)
+    const rows = Math.max(15, Math.ceil(height / totalCell) + 4)
 
     // Simple placement: cycle through shuffled photos, no neighbour checks
     // Fast, predictable, every photo guaranteed to appear
