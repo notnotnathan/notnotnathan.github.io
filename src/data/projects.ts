@@ -3,7 +3,7 @@
 //
 // Block types:
 //   { type: "text", content: "your paragraph here" }
-//   { type: "images", images: [img1, img2], height: 300 }  — height defaults to 400
+//   { type: "images", images: [img1, img2], height: 400, gap: 30 }  — both optional
 
 import cycloidalImg from "@/assets/cycloidal-actuator.jpg";
 import pancakeImg from "@/assets/pancake-printer.jpg";
@@ -13,7 +13,7 @@ import ft4 from "@/assets/freetime/4.jpg";
 
 export type Block =
   | { type: "text"; content: string }
-  | { type: "images"; images: string[]; height?: number };
+  | { type: "images"; images: string[]; height?: number; gap?: number };
 
 export interface ProjectData {
   id: string;
@@ -40,9 +40,9 @@ export const projects: ProjectData[] = [
     ],
     blocks: [
       { type: "text", content: "lorem ipsum block one. this is the first paragraph of detail about the actuator design process, tolerances, and goals." },
-      { type: "images", images: [ft36, cycloidalImg, pancakeImg] },
+      { type: "images", images: [ft36, cycloidalImg, pancakeImg], height: 300, gap: 20 },
       { type: "text", content: "lorem ipsum block two. this covers the testing phase, results, and what was learned from the iterative design process." },
-      { type: "images", images: [ft3, ft4] },
+      { type: "images", images: [ft3, ft4], height: 300, gap: 50 },
     ],
   },
   {
