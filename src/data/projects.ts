@@ -45,4 +45,30 @@ export const projects: ProjectData[] = [
     images: [pancakeImg],
     blocks: [],
   },
+  {
+    id: "pancake-printer",
+    title: "pancake printer",
+    date: "2025",
+    summary: "built a functional 2d gantry pancake printer integrating tetrix structural components, lego ev3 motors, and custom 3d-printed adapters.",
+    bullets: [
+      "built a functional 2d gantry pancake printer integrating tetrix structural components, lego ev3 motors, and custom 3d-printed adapters.",
+      "designed a cad assembly in solidworks, ensuring mechanical fitments and reducing prototyping time.",
+      "programmed motion routines in c++, achieving precise, synchronized xy motion for accurate batter extrusion.",
+    ],
+    images: [pancakeImg],
+    blocks: [],
+  },
+  {
+    id: "pancake-printer",
+    title: "pancake printer",
+    date: "2025",
+    summary: "built a functional 2d gantry pancake printer integrating tetrix structural components, lego ev3 motors, and custom 3d-printed adapters.",
+    bullets: [
+      "built a functional 2d gantry pancake printer integrating tetrix structural components, lego ev3 motors, and custom 3d-printed adapters.",
+      "designed a cad assembly in solidworks, ensuring mechanical fitments and reducing prototyping time.",
+      "programmed motion routines in c++, achieving precise, synchronized xy motion for accurate batter extrusion.",
+    ],
+    images: [pancakeImg],
+    blocks: [],
+  },
 ];
