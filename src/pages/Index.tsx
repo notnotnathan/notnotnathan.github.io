@@ -9,10 +9,10 @@ import {
 } from "@/components/ui/dialog";
 import InfiniteGrid from "@/components/InfiniteGrid";
 import { projects, ProjectData } from "@/data/projects";
+import { experiences, ExperienceData } from "@/data/experiences";
 import ProjectDetail from "@/components/ProjectDetail";
+import ExperienceDetail from "@/components/ExperienceDetail";
 
-import toyotaImg from "@/assets/toyota.jpg";
-import gmImg from "@/assets/gm.jpg";
 import ft100 from "@/assets/freetime/anglerjax.png";
 import ft200 from "@/assets/freetime/fizz.png";
 import ft300 from "@/assets/freetime/nasus.png";
@@ -90,59 +90,13 @@ const freeTimePhotos: string[] = [
   mu1, mu2, mu3, mu4, mu5, mu6, mu7, mu8, mu9, mu10,
 ];
 
-// ─── Types ────────────────────────────────────────────────────────────────────
-interface ContentBlock {
-  text: string;
-  images?: string[];
-}
-
-interface EntryData {
-  title: string;
-  date: string;
-  summary: string;
-  bullets: string[];
-  blocks?: ContentBlock[];
-  images: string[];
-}
-
-// ─── Experience data (stays local to this page) ───────────────────────────────
-const experiences: EntryData[] = [
-  {
-    title: "toyota motor manufacturing canada",
-    date: "jan 2026 – apr 2026",
-    summary: "engineering analyst co-op at toyota's cambridge, ontario plant.",
-    bullets: [
-      "led a tbp-driven continuous improvement project targeting shellbody sealer vision system downtime, reducing coherix-related equipment fault time by approximately 70%. applied structured problem-solving to identify root causes and presented results to senior management.",
-      "directed integration of a torque gun system to accommodate two vehicle models with different requirements. coordinated between production, maintenance, contractors, and vendors while overseeing weekend trial runs and commissioning involving plc logic and system validation.",
-      "audited and optimized weld scheduling parameters to reduce weld spatter, eliminate weld separation defects, and decrease welding tip replacement frequency — contributing to estimated annual cost and material savings.",
-      "conducted time studies for overcycle processes and implemented improvements that reduced unnecessary robot movement and increased process catch-up capability.",
-    ],
-    images: [toyotaImg],
-    blocks: [],
-  },
-  {
-    title: "general motors",
-    date: "may 2025 – aug 2025",
-    summary: "industrial engineering co-op at gm's oshawa assembly plant on the chevrolet silverado line.",
-    bullets: [
-      "led a continuous improvement initiative eliminating production inefficiencies through root cause analysis and cross-functional collaboration — reduced job cycle times by up to 11.8% and eliminated significant line downtime, increasing silverado throughput.",
-      "conducted time studies and redesigned standardized work across 30+ stations using lean manufacturing principles, reducing wasted movement and ergonomic risks.",
-      "updated 10,000+ sqft of factory layout in autocad, delivering precise standardized floor plans that improved cross-functional coordination.",
-      "attended current and future product design review meetings, connecting design intent with real-world assembly outcomes through practical dfma understanding.",
-      "developed an excel-based readiness document mapping job elements to option codes, tooling, part numbers, and rack sizes — improving efficiency of plant floor changeovers.",
-    ],
-    images: [gmImg],
-    blocks: [],
-  },
-];
-
 // ─── Sub-components ───────────────────────────────────────────────────────────
 
 const EntryRow = ({
   entry,
   onClick,
 }: {
-  entry: EntryData | ProjectData;
+  entry: ExperienceData | ProjectData;
   onClick: () => void;
 }) => (
   <button
@@ -183,7 +137,7 @@ const FreeTimeGrid = ({ photos }: { photos: string[] }) => {
 
 // ─── Main Page ────────────────────────────────────────────────────────────────
 const Index = () => {
-  const [selected, setSelected] = useState<EntryData | ProjectData | null>(null);
+  const [selected, setSelected] = useState<ExperienceData | ProjectData | null>(null);
   const [freeTimeOpen, setFreeTimeOpen] = useState(false);
 
   return (
@@ -208,7 +162,7 @@ const Index = () => {
           </div>
         </section>
 
-        {/* Projects — heading links to /portfolio */}
+        {/* Projects */}
         <section className="space-y-3">
           <Link to="/portfolio" className="group flex items-center gap-1">
             <h2 className="text-lg font-bold group-hover:text-accent-foreground transition-colors">
@@ -217,7 +171,7 @@ const Index = () => {
             <span className="text-muted-foreground/50 group-hover:text-muted-foreground transition-colors ml-1 text-xs">{"[>]"}</span>
           </Link>
           <div className="space-y-1">
-            {projects.map((p) => (
+            {projects.filter(p => p.featured).map((p) => (
               <EntryRow key={p.title} entry={p} onClick={() => setSelected(p)} />
             ))}
           </div>
@@ -260,7 +214,7 @@ const Index = () => {
         </section>
       </div>
 
-      {/* ── Experience / Project Detail Dialog ── */}
+      {/* ── Detail Dialog ── */}
       <Dialog open={!!selected} onOpenChange={(open) => !open && setSelected(null)}>
         <DialogContent className="max-w-4xl max-h-[85vh] overflow-y-auto scrollbar-thin font-mono lowercase bg-background border-border">
           {selected && (
@@ -273,20 +227,10 @@ const Index = () => {
                   {selected.date}
                 </DialogDescription>
               </DialogHeader>
-
-              {"coverImage" in selected ? (
-                <ProjectDetail project={selected as ProjectData} />
-              ) : (
-                <div className="space-y-6 mt-2">
-                  <p className="text-foreground text-base">{selected.summary}</p>
-                  <ul className="space-y-2 text-base text-muted-foreground list-disc list-inside">
-                    {selected.bullets.map((b, i) => <li key={i}>{b}</li>)}
-                  </ul>
-                  {selected.images.map((src, i) => (
-                    <img key={i} src={src} alt={selected.title} className="w-full rounded-md border border-border" loading="lazy" />
-                  ))}
-                </div>
-              )}
+              {"coverImage" in selected
+                ? <ProjectDetail project={selected as ProjectData} />
+                : <ExperienceDetail experience={selected as ExperienceData} />
+              }
             </>
           )}
         </DialogContent>
