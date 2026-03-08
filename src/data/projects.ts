@@ -7,6 +7,9 @@
 
 import cycloidalImg from "@/assets/cycloidal-actuator.jpg";
 import pancakeImg from "@/assets/pancake-printer.jpg";
+import ft36 from "@/assets/freetime/36.jpg";
+import ft3 from "@/assets/freetime/3.jpg";
+import ft4 from "@/assets/freetime/4.jpg";
 
 export type Block =
   | { type: "text"; content: string }
@@ -35,7 +38,12 @@ export const projects: ProjectData[] = [
       "engineered a compact 7:1 cycloidal actuator for dynamic robotic joints at low cost.",
       "performed iterative design on gear and housing tolerances to reduce backlash while preserving backdrivability and achieving smooth, reliable motion.",
     ],
-    blocks: [],
+    blocks: [
+      { type: "text", content: "lorem ipsum block one. this is the first paragraph of detail about the actuator design process, tolerances, and goals." },
+      { type: "images", images: [ft36, cycloidalImg, pancakeImg] },
+      { type: "text", content: "lorem ipsum block two. this covers the testing phase, results, and what was learned from the iterative design process." },
+      { type: "images", images: [ft3, ft4] },
+    ],
   },
   {
     id: "pancake-printer",
