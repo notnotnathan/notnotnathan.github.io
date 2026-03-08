@@ -10,6 +10,14 @@
     <meta property="og:description" content="Mechanical Engineering @ University of Waterloo" />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="https://nathanma.ca/favicon.png" />
+    <script>
+      // Restore path from sessionStorage after 404 redirect
+      const redirect = sessionStorage.getItem('redirect');
+      if (redirect) {
+        sessionStorage.removeItem('redirect');
+        window.history.replaceState(null, '', redirect);
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>
