@@ -96,7 +96,7 @@ export const projects: ProjectData[] = [
     ],
   },
   {
-    id: "cycloidal-actuatoradsfdsafdsafdsafdafdsafdsafdsfdsafsadf",
+    id: "cycloidal-actuator",
     title: "quadrupedal robot",
     date: "2025",
     featured: true,
@@ -115,7 +115,7 @@ export const projects: ProjectData[] = [
   },
   {
     id: "cycloidal-actuator",
-    title: "Water Rocket Parachute Deployment Device",
+    title: "water rocket parachute deployment device",
     date: "2025",
     featured: true,
     coverImage: cycloidalImg,
