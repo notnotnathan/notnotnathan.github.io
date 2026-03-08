@@ -5,10 +5,6 @@ import { useImagePreloader } from '@/hooks/useImagePreloader'
 const SPRING_CONFIG = { damping: 40, stiffness: 200, mass: 0.5 }
 const MOBILE_SPRING = { damping: 80, stiffness: 2000, mass: 0.1 }
 const SCALE_SPRING = { damping: 25, stiffness: 300, mass: 0.2 }
-const TIER1_COUNT = 20
-
-const MIN_GRID_COLS = 40
-const MIN_GRID_ROWS = 40
 
 function getGridMetrics(containerSize: { width: number; height: number }) {
   const shortSide = Math.min(containerSize.width, containerSize.height)
@@ -28,58 +24,6 @@ const shuffleArray = <T,>(array: T[]): T[] => {
     ;[shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]
   }
   return shuffled
-}
-
-function buildGrid(rows: number, cols: number, photos: string[]): string[][] {
-  const n = photos.length
-  const grid: (string | null)[][] = Array.from({ length: rows }, () => new Array(cols).fill(null))
-
-  // Step 1: guarantee every photo appears at least once, evenly spread
-  const firstPass = shuffleArray(photos)
-  const totalCells = rows * cols
-  for (let i = 0; i < n; i++) {
-    const zoneStart = Math.floor((i / n) * totalCells)
-    const zoneEnd = Math.floor(((i + 1) / n) * totalCells)
-    const cellIdx = zoneStart + Math.floor(Math.random() * (zoneEnd - zoneStart))
-    const r = Math.floor(cellIdx / cols)
-    const c = cellIdx % cols
-    grid[r][c] = firstPass[i]
-  }
-
-  // Step 2: fill remaining cells, 3x3 neighbour check only
-  const sequence: string[] = []
-  while (sequence.length < totalCells) {
-    sequence.push(...shuffleArray(photos))
-  }
-  let seqIdx = 0
-
-  for (let r = 0; r < rows; r++) {
-    for (let c = 0; c < cols; c++) {
-      if (grid[r][c] !== null) continue
-
-      const forbidden = new Set<string>()
-      for (let dr = -1; dr <= 1; dr++) {
-        for (let dc = -1; dc <= 1; dc++) {
-          if (dr === 0 && dc === 0) continue
-          const nr = mod(r + dr, rows)
-          const nc = mod(c + dc, cols)
-          if (grid[nr][nc] !== null) forbidden.add(grid[nr][nc]!)
-        }
-      }
-
-      let chosen = sequence[seqIdx % sequence.length]
-      let attempts = 0
-      while (forbidden.has(chosen) && attempts < n) {
-        seqIdx++
-        attempts++
-        chosen = sequence[seqIdx % sequence.length]
-      }
-      grid[r][c] = chosen
-      seqIdx++
-    }
-  }
-
-  return grid as string[][]
 }
 
 interface GridItemData {
@@ -183,22 +127,31 @@ const InfiniteGrid = ({ photos, width, height }: InfiniteGridProps) => {
   const mouseX = useMotionValue(-9999)
   const mouseY = useMotionValue(-9999)
 
+  // Shuffle once, preload first 20
   const shuffledImages = useMemo(() => shuffleArray(photos), [photos])
-  useImagePreloader(shuffledImages, TIER1_COUNT)
+  useImagePreloader(shuffledImages, 20)
 
   const metrics = useMemo(() => getGridMetrics({ width, height }), [width, height])
 
   const gridConfig = useMemo(() => {
     const { totalCell } = metrics
-    const cols = Math.max(MIN_GRID_COLS, Math.ceil(width / totalCell) + 4)
-    const rows = Math.max(MIN_GRID_ROWS, Math.ceil(height / totalCell) + 4)
+    // Just enough cells to fill the visible area — keep DOM count low
+    const cols = Math.ceil(width / totalCell) + 4
+    const rows = Math.ceil(height / totalCell) + 4
 
-    const grid = buildGrid(rows, cols, shuffledImages)
+    // Simple placement: cycle through shuffled photos, no neighbour checks
+    // Fast, predictable, every photo guaranteed to appear
     const items: GridItemData[] = []
-
+    let idx = 0
     for (let r = 0; r < rows; r++) {
       for (let c = 0; c < cols; c++) {
-        items.push({ id: `${r}-${c}`, relX: c - 1, relY: r - 1, imgUrl: grid[r][c] })
+        items.push({
+          id: `${r}-${c}`,
+          relX: c - 1,
+          relY: r - 1,
+          imgUrl: shuffledImages[idx % shuffledImages.length],
+        })
+        idx++
       }
     }
     return { items, cols, rows, ...metrics }
