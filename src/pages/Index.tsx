@@ -54,10 +54,20 @@ import ft33 from "@/assets/freetime/33.jpg";
 import ft34 from "@/assets/freetime/34.jpg";
 import ft35 from "@/assets/freetime/35.jpg";
 
+import mu1 from "@/assets/freetime/lalaland.png";
+import mu2 from "@/assets/freetime/ram.png";
+import mu3 from "@/assets/freetime/orange.jpg";
+import mu4 from "@/assets/freetime/ultra.png";
+import mu5 from "@/assets/freetime/late.jpg";
+import mu6 from "@/assets/freetime/ye.jpg";
+import mu7 from "@/assets/freetime/flowerboy.png";
+import mu8 from "@/assets/freetime/Stoneflowerjobim.jpg";
+import mu9 from "@/assets/freetime/Getz-gilberto.jpg";
 
 const freeTimePhotos: string[] = [
   ft100, ft200, ft300, ft400, ft500, ft600, ft1, ft2, ft3, ft4, ft5, ft6, ft7, ft8, ft9, ft10, ft11, ft12, ft13, ft14, ft15, 
-  ft16, ft17, ft18, ft19, ft20, ft21, ft22, ft23, ft24, ft25, ft26, ft27, ft28, ft29, ft30, ft31, ft32, ft33, ft34, ft35	
+  ft16, ft17, ft18, ft19, ft20, ft21, ft22, ft23, ft24, ft25, ft26, ft27, ft28, ft29, ft30, ft31, ft32, ft33, ft34, ft35,
+  mu1, mu2, mu3, mu4, mu5, mu6, mu7, mu8, mu9
 
 ];
 
