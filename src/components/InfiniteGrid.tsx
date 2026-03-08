@@ -9,7 +9,7 @@ const TIER1_COUNT = 20
 
 function getGridMetrics(containerSize: { width: number; height: number }) {
   const shortSide = Math.min(containerSize.width, containerSize.height)
-  const cellSize = Math.round(Math.min(280, Math.max(120, shortSide * 0.22)))
+  const cellSize = Math.round(Math.min(340, Math.max(145, shortSide * 0.27)))
   const gap = Math.max(10, Math.round(cellSize * 0.09))
   const totalCell = cellSize + gap
   const hoverRadius = cellSize * 1.25
