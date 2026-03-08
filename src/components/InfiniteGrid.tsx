@@ -7,11 +7,8 @@ const MOBILE_SPRING = { damping: 80, stiffness: 2000, mass: 0.1 }
 const SCALE_SPRING = { damping: 25, stiffness: 300, mass: 0.2 }
 const TIER1_COUNT = 20
 
-// Minimum grid dimensions — large enough that scrolling feels infinite
-// before the wrap becomes obvious. 20×20 = 400 cells for 41 photos → ~9-10 repeats
-// spread across a huge area. Performance cost is just DOM nodes, images are already cached.
-const MIN_GRID_COLS = 20
-const MIN_GRID_ROWS = 20
+const MIN_GRID_COLS = 40
+const MIN_GRID_ROWS = 40
 
 function getGridMetrics(containerSize: { width: number; height: number }) {
   const shortSide = Math.min(containerSize.width, containerSize.height)
@@ -33,40 +30,52 @@ const shuffleArray = <T,>(array: T[]): T[] => {
   return shuffled
 }
 
-// Fill a grid such that every photo appears roughly equally,
-// and no photo repeats within a 3×3 neighbourhood.
 function buildGrid(rows: number, cols: number, photos: string[]): string[][] {
+  const n = photos.length
   const grid: (string | null)[][] = Array.from({ length: rows }, () => new Array(cols).fill(null))
 
-  // Build a round-robin queue so every image is used before any repeats
-  const queue: string[] = []
-  while (queue.length < rows * cols) {
-    queue.push(...shuffleArray(photos))
+  // Step 1: guarantee every photo appears at least once, evenly spread
+  const firstPass = shuffleArray(photos)
+  const totalCells = rows * cols
+  for (let i = 0; i < n; i++) {
+    const zoneStart = Math.floor((i / n) * totalCells)
+    const zoneEnd = Math.floor(((i + 1) / n) * totalCells)
+    const cellIdx = zoneStart + Math.floor(Math.random() * (zoneEnd - zoneStart))
+    const r = Math.floor(cellIdx / cols)
+    const c = cellIdx % cols
+    grid[r][c] = firstPass[i]
   }
-  let qi = 0
+
+  // Step 2: fill remaining cells, 3x3 neighbour check only
+  const sequence: string[] = []
+  while (sequence.length < totalCells) {
+    sequence.push(...shuffleArray(photos))
+  }
+  let seqIdx = 0
 
   for (let r = 0; r < rows; r++) {
     for (let c = 0; c < cols; c++) {
+      if (grid[r][c] !== null) continue
+
       const forbidden = new Set<string>()
-      for (let dr = -2; dr <= 2; dr++) {
-        for (let dc = -2; dc <= 2; dc++) {
+      for (let dr = -1; dr <= 1; dr++) {
+        for (let dc = -1; dc <= 1; dc++) {
           if (dr === 0 && dc === 0) continue
-          const nr = (r + dr + rows) % rows
-          const nc = (c + dc + cols) % cols
+          const nr = mod(r + dr, rows)
+          const nc = mod(c + dc, cols)
           if (grid[nr][nc] !== null) forbidden.add(grid[nr][nc]!)
         }
       }
 
-      // Try next items from queue until we find one not forbidden
+      let chosen = sequence[seqIdx % sequence.length]
       let attempts = 0
-      let chosen = queue[qi % queue.length]
-      while (forbidden.has(chosen) && attempts < queue.length) {
-        qi++
+      while (forbidden.has(chosen) && attempts < n) {
+        seqIdx++
         attempts++
-        chosen = queue[qi % queue.length]
+        chosen = sequence[seqIdx % sequence.length]
       }
       grid[r][c] = chosen
-      qi++
+      seqIdx++
     }
   }
 
@@ -181,7 +190,6 @@ const InfiniteGrid = ({ photos, width, height }: InfiniteGridProps) => {
 
   const gridConfig = useMemo(() => {
     const { totalCell } = metrics
-    // Use whichever is bigger: enough to fill the screen, or the minimum for variety
     const cols = Math.max(MIN_GRID_COLS, Math.ceil(width / totalCell) + 4)
     const rows = Math.max(MIN_GRID_ROWS, Math.ceil(height / totalCell) + 4)
 
