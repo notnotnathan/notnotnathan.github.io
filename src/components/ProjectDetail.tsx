@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { ProjectData, Block } from "@/data/projects";
 
 const useIsMobile = () => {
@@ -12,70 +12,123 @@ const useIsMobile = () => {
   return isMobile;
 };
 
-const DEFAULT_MAX_HEIGHT = 350;
+const MAX_HEIGHT = 400;
+const MAX_GAP = 50;
 
-const ImageBlock = ({ images, mode = "width" }: { images: string[]; mode?: "height" | "width" }) => {
+// Loads image dimensions before rendering
+const useImageDimensions = (srcs: string[]) => {
+  const [dims, setDims] = useState<{ w: number; h: number }[] | null>(null);
+  useEffect(() => {
+    let cancelled = false;
+    Promise.all(
+      srcs.map(
+        (src) =>
+          new Promise<{ w: number; h: number }>((resolve) => {
+            const img = new Image();
+            img.onload = () => resolve({ w: img.naturalWidth, h: img.naturalHeight });
+            img.onerror = () => resolve({ w: 1, h: 1 });
+            img.src = src;
+          })
+      )
+    ).then((results) => {
+      if (!cancelled) setDims(results);
+    });
+    return () => { cancelled = true; };
+  }, [srcs.join(",")]);
+  return dims;
+};
+
+const ImageBlock = ({ images }: { images: string[] }) => {
   const isMobile = useIsMobile();
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [containerWidth, setContainerWidth] = useState(0);
+  const dims = useImageDimensions(images);
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+    const ro = new ResizeObserver((entries) => {
+      setContainerWidth(entries[0].contentRect.width);
+    });
+    ro.observe(containerRef.current);
+    return () => ro.disconnect();
+  }, []);
+
   if (images.length === 0) return null;
 
+  // Mobile: stack vertically, full width, natural aspect ratio
   if (isMobile) {
     return (
       <div className="flex flex-col gap-2 w-full">
         {images.map((src, i) => (
-          <img
-            key={i}
-            src={src}
-            alt=""
-            className="w-full rounded-md border border-border"
-            style={{ display: "block" }}
-            loading="lazy"
-          />
+          <img key={i} src={src} alt="" className="w-full rounded-md border border-border block" loading="lazy" />
         ))}
       </div>
     );
   }
 
-  if (mode === "height") {
-    return (
-      <div className="flex gap-2 w-full items-start flex-wrap">
-        {images.map((src, i) => (
-          <img
-            key={i}
-            src={src}
-            alt=""
-            className="rounded-md border border-border"
-            style={{
-              height: DEFAULT_MAX_HEIGHT,
-              width: "auto",
-              display: "block",
-              maxWidth: "100%",
-            }}
-            loading="lazy"
-          />
-        ))}
-      </div>
-    );
+  // While measuring, render invisible placeholder
+  if (!dims || containerWidth === 0) {
+    return <div ref={containerRef} className="w-full" style={{ height: MAX_HEIGHT }} />;
   }
 
-  // width mode: equal heights, natural aspect ratio, slight crop to fill row
+  const n = images.length;
+  const gaps = n - 1;
+
+  // Step 1: scale all images to share the same height H such that total width = containerWidth
+  // At height H, image i has width = H * (dims[i].w / dims[i].h)
+  // Sum of widths + gaps*gap = containerWidth
+  // First try gap=0 to find the natural shared height
+  const sumAspects = dims.reduce((acc, d) => acc + d.w / d.h, 0);
+
+  // naturalH = containerWidth / sumAspects (with 0 gap)
+  const naturalH = containerWidth / sumAspects;
+
+  let finalHeight: number;
+  let finalGap: number;
+
+  if (naturalH <= MAX_HEIGHT) {
+    // Images fit within max height at full width with no gap needed
+    // Now find gap: containerWidth = H * sumAspects + gaps * gap
+    // gap = (containerWidth - H * sumAspects) / gaps
+    // But naturalH already makes sum of widths = containerWidth with gap=0
+    // So just use a fixed small gap and let images not fully fill (they're already at natural fit)
+    finalHeight = naturalH;
+    finalGap = gaps > 0 ? Math.min(MAX_GAP, 12) : 0;
+  } else {
+    // Height exceeds max — fix at MAX_HEIGHT and find gap to fill width
+    finalHeight = MAX_HEIGHT;
+    const totalImgWidth = dims.reduce((acc, d) => acc + finalHeight * (d.w / d.h), 0);
+    const remainingSpace = containerWidth - totalImgWidth;
+    const neededGap = gaps > 0 ? remainingSpace / gaps : 0;
+
+    if (neededGap <= MAX_GAP) {
+      finalGap = Math.max(0, neededGap);
+    } else {
+      // Gap would be too large — don't force full width, just use MAX_GAP
+      finalGap = MAX_GAP;
+    }
+  }
+
   return (
-    <div className="flex gap-2 w-full" style={{ height: DEFAULT_MAX_HEIGHT }}>
-      {images.map((src, i) => (
-        <img
-          key={i}
-          src={src}
-          alt=""
-          className="rounded-md border border-border"
-          style={{
-            height: DEFAULT_MAX_HEIGHT,
-            width: "auto",
-            flex: "1 1 0",
-            minWidth: 0,
-            objectFit: "cover",
-          }}
-          loading="lazy"
-        />
-      ))}
+    <div
+      ref={containerRef}
+      className="flex w-full"
+      style={{ gap: finalGap, height: Math.round(finalHeight) }}
+    >
+      {images.map((src, i) => {
+        const aspectRatio = dims[i].w / dims[i].h;
+        const imgWidth = Math.round(finalHeight * aspectRatio);
+        return (
+          <img
+            key={i}
+            src={src}
+            alt=""
+            className="rounded-md border border-border block flex-shrink-0"
+            style={{ width: imgWidth, height: Math.round(finalHeight), objectFit: "fill" }}
+            loading="lazy"
+          />
+        );
+      })}
     </div>
   );
 };
@@ -117,7 +170,7 @@ const ProjectDetail = ({ project }: { project: ProjectData }) => {
               );
             }
             if (block.type === "images") {
-              return <ImageBlock key={i} images={block.images} mode={block.mode} />;
+              return <ImageBlock key={i} images={block.images} />;
             }
             return null;
           })}
