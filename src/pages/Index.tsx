@@ -154,13 +154,14 @@ const EntryRow = ({
 }) => (
   <button
     onClick={onClick}
-    className="flex justify-between w-full text-left group cursor-pointer"
+    className="w-full text-left group cursor-pointer flex flex-col sm:flex-row sm:justify-between sm:items-baseline gap-0.5 sm:gap-4"
   >
-    <span className="font-semibold group-hover:text-accent-foreground transition-colors border-b border-transparent group-hover:border-muted-foreground/40 flex items-center gap-1">
-      {entry.title}
-      <span className="text-muted-foreground/50 group-hover:text-muted-foreground transition-colors ml-2 text-xs">{"[>]"}</span>
+    <span className="font-semibold group-hover:text-accent-foreground transition-colors border-b border-transparent group-hover:border-muted-foreground/40">
+      {entry.title}<span className="text-muted-foreground/50 group-hover:text-muted-foreground transition-colors ml-2 text-xs whitespace-nowrap">{"[>]"}</span>
     </span>
-    <span className="text-muted-foreground shrink-0 ml-4">{entry.date}</span>
+    <span className="text-muted-foreground text-sm sm:shrink-0 sm:text-base">
+      {entry.date}
+    </span>
   </button>
 );
 
