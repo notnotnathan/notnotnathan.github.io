@@ -82,12 +82,13 @@ import mu6 from "@/assets/freetime/ye.jpg";
 import mu7 from "@/assets/freetime/flowerboy.png";
 import mu8 from "@/assets/freetime/Stoneflowerjobim.jpg";
 import mu9 from "@/assets/freetime/Getz-gilberto.jpg";
+import mu10 from "@/assets/freetime/astrud.jpg";
 
 const freeTimePhotos: string[] = [
   ft100, ft200, ft300, ft400, ft500, ft600, ft1, ft2, ft3, ft4, ft5, ft6, ft7, ft8, ft9, ft10, ft11, ft12, ft13, ft14, ft15, 
   ft16, ft17, ft18, ft19, ft20, ft21, ft22, ft23, ft24, ft25, ft26, ft27, ft28, ft29, ft30, ft31, ft32, ft33, ft34, ft35,
   ft36, ft37, ft38, ft39, ft40, ft41, ft42,ft43, ft44, ft45, ft46, ft47, ft48, ft49, ft50, ft51, ft52,ft53,
-  mu1, mu2, mu3, mu4, mu5, mu6, mu7, mu8, mu9
+  mu1, mu2, mu3, mu4, mu5, mu6, mu7, mu8, mu9, mu10
 
 ];
 
