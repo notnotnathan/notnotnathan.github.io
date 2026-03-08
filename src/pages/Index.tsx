@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { Link } from "react-router-dom";
 import {
   Dialog,
   DialogContent,
@@ -7,11 +8,10 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 import InfiniteGrid from "@/components/InfiniteGrid";
+import { projects, ProjectData } from "@/data/projects";
 
 import toyotaImg from "@/assets/toyota.jpg";
 import gmImg from "@/assets/gm.jpg";
-import cycloidalImg from "@/assets/cycloidal-actuator.jpg";
-import pancakeImg from "@/assets/pancake-printer.jpg";
 import ft100 from "@/assets/freetime/anglerjax.png";
 import ft200 from "@/assets/freetime/fizz.png";
 import ft300 from "@/assets/freetime/nasus.png";
@@ -71,8 +71,6 @@ import ft50 from "@/assets/freetime/50.jpg";
 import ft51 from "@/assets/freetime/51.jpg";
 import ft52 from "@/assets/freetime/52.jpg";
 import ft53 from "@/assets/freetime/53.jpg";
-
-
 import mu1 from "@/assets/freetime/lalaland.png";
 import mu2 from "@/assets/freetime/ram.png";
 import mu3 from "@/assets/freetime/orange.jpg";
@@ -85,11 +83,10 @@ import mu9 from "@/assets/freetime/Getz-gilberto.jpg";
 import mu10 from "@/assets/freetime/astrud.jpg";
 
 const freeTimePhotos: string[] = [
-  ft100, ft200, ft300, ft400, ft500, ft600, ft1, ft2, ft3, ft4, ft5, ft6, ft7, ft8, ft9, ft10, ft11, ft12, ft13, ft14, ft15, 
+  ft100, ft200, ft300, ft400, ft500, ft600, ft1, ft2, ft3, ft4, ft5, ft6, ft7, ft8, ft9, ft10, ft11, ft12, ft13, ft14, ft15,
   ft16, ft17, ft18, ft19, ft20, ft21, ft22, ft23, ft24, ft25, ft26, ft27, ft28, ft29, ft30, ft31, ft32, ft33, ft34, ft35,
-  ft36, ft37, ft38, ft39, ft40, ft41, ft42,ft43, ft44, ft45, ft46, ft47, ft48, ft49, ft50, ft51, ft52,ft53,
-  mu1, mu2, mu3, mu4, mu5, mu6, mu7, mu8, mu9, mu10
-
+  ft36, ft37, ft38, ft39, ft40, ft41, ft42, ft43, ft44, ft45, ft46, ft47, ft48, ft49, ft50, ft51, ft52, ft53,
+  mu1, mu2, mu3, mu4, mu5, mu6, mu7, mu8, mu9, mu10,
 ];
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -107,7 +104,7 @@ interface EntryData {
   images: string[];
 }
 
-// ─── Data ─────────────────────────────────────────────────────────────────────
+// ─── Experience data (stays local to this page) ───────────────────────────────
 const experiences: EntryData[] = [
   {
     title: "toyota motor manufacturing canada",
@@ -138,39 +135,13 @@ const experiences: EntryData[] = [
   },
 ];
 
-const projects: EntryData[] = [
-  {
-    title: "internal cycloidal actuator",
-    date: "2025",
-    summary: "engineered a compact 7:1 cycloidal actuator for dynamic robotic joints at low cost.",
-    bullets: [
-      "engineered a compact 7:1 cycloidal actuator for dynamic robotic joints at low cost.",
-      "performed iterative design on gear and housing tolerances to reduce backlash while preserving backdrivability and achieving smooth, reliable motion.",
-    ],
-    images: [cycloidalImg],
-    blocks: [],
-  },
-  {
-    title: "pancake printer",
-    date: "2025",
-    summary: "built a functional 2d gantry pancake printer integrating tetrix structural components, lego ev3 motors, and custom 3d-printed adapters.",
-    bullets: [
-      "built a functional 2d gantry pancake printer integrating tetrix structural components, lego ev3 motors, and custom 3d-printed adapters.",
-      "designed a cad assembly in solidworks, ensuring mechanical fitments and reducing prototyping time.",
-      "programmed motion routines in c++, achieving precise, synchronized xy motion for accurate batter extrusion.",
-    ],
-    images: [pancakeImg],
-    blocks: [],
-  },
-];
-
 // ─── Sub-components ───────────────────────────────────────────────────────────
 
 const EntryRow = ({
   entry,
   onClick,
 }: {
-  entry: EntryData;
+  entry: EntryData | ProjectData;
   onClick: () => void;
 }) => (
   <button
@@ -186,7 +157,6 @@ const EntryRow = ({
   </button>
 );
 
-// Measures the dialog content area so the grid fills it exactly
 const FreeTimeGrid = ({ photos }: { photos: string[] }) => {
   const ref = useRef<HTMLDivElement>(null);
   const [size, setSize] = useState({ width: 0, height: 0 });
@@ -212,7 +182,7 @@ const FreeTimeGrid = ({ photos }: { photos: string[] }) => {
 
 // ─── Main Page ────────────────────────────────────────────────────────────────
 const Index = () => {
-  const [selected, setSelected] = useState<EntryData | null>(null);
+  const [selected, setSelected] = useState<EntryData | ProjectData | null>(null);
   const [freeTimeOpen, setFreeTimeOpen] = useState(false);
 
   return (
@@ -237,9 +207,14 @@ const Index = () => {
           </div>
         </section>
 
-        {/* Projects */}
+        {/* Projects — heading links to /portfolio */}
         <section className="space-y-3">
-          <h2 className="text-lg font-bold">projects</h2>
+          <Link to="/portfolio" className="group flex items-center gap-1">
+            <h2 className="text-lg font-bold group-hover:text-accent-foreground transition-colors">
+              projects
+            </h2>
+            <span className="text-muted-foreground/50 group-hover:text-muted-foreground transition-colors ml-1 text-xs">{"[>]"}</span>
+          </Link>
           <div className="space-y-1">
             {projects.map((p) => (
               <EntryRow key={p.title} entry={p} onClick={() => setSelected(p)} />
