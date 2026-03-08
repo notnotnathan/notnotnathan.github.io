@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/dialog";
 import InfiniteGrid from "@/components/InfiniteGrid";
 import { projects, ProjectData } from "@/data/projects";
+import ProjectDetail from "@/components/ProjectDetail";
 
 import toyotaImg from "@/assets/toyota.jpg";
 import gmImg from "@/assets/gm.jpg";
@@ -216,7 +217,7 @@ const Index = () => {
             <span className="text-muted-foreground/50 group-hover:text-muted-foreground transition-colors ml-1 text-xs">{"[>]"}</span>
           </Link>
           <div className="space-y-1">
-            {projects.filter(p => p.featured).map((p) => (
+            {projects.map((p) => (
               <EntryRow key={p.title} entry={p} onClick={() => setSelected(p)} />
             ))}
           </div>
@@ -273,45 +274,19 @@ const Index = () => {
                 </DialogDescription>
               </DialogHeader>
 
-              <div className="space-y-6 mt-2">
-                <p className="text-foreground text-base">{selected.summary}</p>
-
-                <ul className="space-y-2 text-base text-muted-foreground list-disc list-inside">
-                  {selected.bullets.map((b, i) => (
-                    <li key={i}>{b}</li>
+              {"coverImage" in selected ? (
+                <ProjectDetail project={selected as ProjectData} />
+              ) : (
+                <div className="space-y-6 mt-2">
+                  <p className="text-foreground text-base">{selected.summary}</p>
+                  <ul className="space-y-2 text-base text-muted-foreground list-disc list-inside">
+                    {selected.bullets.map((b, i) => <li key={i}>{b}</li>)}
+                  </ul>
+                  {selected.images.map((src, i) => (
+                    <img key={i} src={src} alt={selected.title} className="w-full rounded-md border border-border" loading="lazy" />
                   ))}
-                </ul>
-
-                {selected.images.map((src, i) => (
-                  <img
-                    key={i}
-                    src={src}
-                    alt={selected.title}
-                    className="w-full rounded-md border border-border"
-                    loading="lazy"
-                  />
-                ))}
-
-                {selected.blocks && selected.blocks.length > 0 && (
-                  <div className="space-y-8 border-t border-border pt-6">
-                    {selected.blocks.map((block, i) => (
-                      <div key={i} className="space-y-4">
-                        <p className="text-base text-foreground/80">{block.text}</p>
-                        {block.images &&
-                          block.images.map((src, j) => (
-                            <img
-                              key={j}
-                              src={src}
-                              alt={`${selected.title} detail ${i}-${j}`}
-                              className="w-full rounded-md border border-border"
-                              loading="lazy"
-                            />
-                          ))}
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
+                </div>
+              )}
             </>
           )}
         </DialogContent>
