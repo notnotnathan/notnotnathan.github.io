@@ -42,9 +42,9 @@ export const projects: ProjectData[] = [
     ],
     blocks: [
       { type: "text", content: "lorem ipsum block one. this is the first paragraph of detail about the actuator design process, tolerances, and goals." },
-      { type: "images", images: [ft36, cycloidalImg, pancakeImg], mode: "width" },
+      { type: "images", images: [ft36, cycloidalImg, pancakeImg], mode: "height" },
       { type: "text", content: "lorem ipsum block two. this covers the testing phase, results, and what was learned from the iterative design process." },
-      { type: "images", images: [ft3, ft4], mode: "width" },
+      { type: "images", images: [ft3, ft4], mode: "height" },
     ],
   },
   {
