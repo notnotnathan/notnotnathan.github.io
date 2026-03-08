@@ -189,7 +189,7 @@ const FreeTimeGrid = ({ photos }: { photos: string[] }) => {
   }, []);
 
   return (
-    <div ref={ref} style={{ width: "100%", height: "60vh" }}>
+    <div ref={ref} style={{ width: "100%", height: "75vh" }}>
       {size.width > 0 && (
         <InfiniteGrid photos={photos} width={size.width} height={size.height} />
       )}
@@ -273,7 +273,7 @@ const Index = () => {
 
       {/* ── Experience / Project Detail Dialog ── */}
       <Dialog open={!!selected} onOpenChange={(open) => !open && setSelected(null)}>
-        <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto scrollbar-thin font-mono lowercase bg-background border-border">
+        <DialogContent className="max-w-4xl max-h-[85vh] overflow-y-auto scrollbar-thin font-mono lowercase bg-background border-border">
           {selected && (
             <>
               <DialogHeader>
@@ -331,7 +331,7 @@ const Index = () => {
 
       {/* ── Free Time Infinite Grid Dialog ── */}
       <Dialog open={freeTimeOpen} onOpenChange={setFreeTimeOpen}>
-        <DialogContent className="max-w-3xl font-mono lowercase bg-background border-border overflow-hidden p-0">
+        <DialogContent className="max-w-5xl font-mono lowercase bg-background border-border overflow-hidden p-0">
           <div className="px-6 pt-6 pb-3">
             <DialogTitle className="text-foreground font-bold text-lg">free time</DialogTitle>
             <DialogDescription className="text-muted-foreground">
