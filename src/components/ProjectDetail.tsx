@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { ProjectData, Block } from "@/data/projects";
 
 const useIsMobile = () => {
@@ -11,47 +11,8 @@ const useIsMobile = () => {
   return isMobile;
 };
 
-const MAX_HEIGHT = 400;
-const MAX_GAP = 50;
-
-const useImageDimensions = (srcs: string[]) => {
-  const [dims, setDims] = useState<{ w: number; h: number }[] | null>(null);
-  useEffect(() => {
-    let cancelled = false;
-    Promise.all(
-      srcs.map(
-        (src) =>
-          new Promise<{ w: number; h: number }>((resolve) => {
-            const img = new Image();
-            img.onload = () => resolve({ w: img.naturalWidth, h: img.naturalHeight });
-            img.onerror = () => resolve({ w: 1, h: 1 });
-            img.src = src;
-          })
-      )
-    ).then((results) => {
-      if (!cancelled) setDims(results);
-    });
-    return () => { cancelled = true; };
-  }, [srcs.join(",")]);
-  return dims;
-};
-
 const ImageBlock = ({ images }: { images: string[] }) => {
   const isMobile = useIsMobile();
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [containerWidth, setContainerWidth] = useState<number | null>(null);
-  const dims = useImageDimensions(images);
-
-  useEffect(() => {
-    if (!containerRef.current) return;
-    const ro = new ResizeObserver((entries) => {
-      const w = entries[0].contentRect.width;
-      if (w > 0) setContainerWidth(w);
-    });
-    ro.observe(containerRef.current);
-    return () => ro.disconnect();
-  }, []);
-
   if (images.length === 0) return null;
 
   if (isMobile) {
@@ -64,48 +25,18 @@ const ImageBlock = ({ images }: { images: string[] }) => {
     );
   }
 
-  let content = null;
-  if (dims && containerWidth) {
-    const gaps = images.length - 1;
-    const sumAspects = dims.reduce((acc, d) => acc + d.w / d.h, 0);
-    const naturalH = containerWidth / sumAspects;
-
-    let finalHeight: number;
-    let finalGap: number;
-
-    if (naturalH <= MAX_HEIGHT) {
-      finalHeight = naturalH;
-      finalGap = gaps > 0 ? 12 : 0;
-    } else {
-      finalHeight = MAX_HEIGHT;
-      const totalImgWidth = dims.reduce((acc, d) => acc + finalHeight * (d.w / d.h), 0);
-      const neededGap = gaps > 0 ? (containerWidth - totalImgWidth) / gaps : 0;
-      finalGap = neededGap <= MAX_GAP ? Math.max(0, neededGap) : MAX_GAP;
-    }
-
-    const h = Math.round(finalHeight);
-    content = (
-      <div className="flex w-full" style={{ gap: finalGap, height: h }}>
-        {images.map((src, i) => {
-          const w = Math.round(finalHeight * (dims[i].w / dims[i].h));
-          return (
-            <img
-              key={i}
-              src={src}
-              alt=""
-              className="rounded-md border border-border block flex-shrink-0"
-              style={{ width: w, height: h }}
-              loading="lazy"
-            />
-          );
-        })}
-      </div>
-    );
-  }
-
   return (
-    <div ref={containerRef} className="w-full" style={{ minHeight: content ? undefined : MAX_HEIGHT }}>
-      {content}
+    <div className="flex justify-center" style={{ gap: 30 }}>
+      {images.map((src, i) => (
+        <img
+          key={i}
+          src={src}
+          alt=""
+          className="rounded-md border border-border block"
+          style={{ height: 400, width: "auto" }}
+          loading="lazy"
+        />
+      ))}
     </div>
   );
 };
