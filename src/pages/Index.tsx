@@ -216,7 +216,7 @@ const Index = () => {
             <span className="text-muted-foreground/50 group-hover:text-muted-foreground transition-colors ml-1 text-xs">{"[>]"}</span>
           </Link>
           <div className="space-y-1">
-            {projects.map((p) => (
+            {projects.filter(p => p.featured).map((p) => (
               <EntryRow key={p.title} entry={p} onClick={() => setSelected(p)} />
             ))}
           </div>
