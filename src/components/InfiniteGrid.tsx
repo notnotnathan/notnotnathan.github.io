@@ -1,8 +1,9 @@
-import { useState, useEffect, useMemo, useCallback, memo } from 'react'
+import { useState, useEffect, useMemo, useCallback, memo, useRef } from 'react'
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import { useImagePreloader } from '@/hooks/useImagePreloader'
 
 const SPRING_CONFIG = { damping: 40, stiffness: 200, mass: 0.5 }
+const MOBILE_SPRING = { damping: 60, stiffness: 600, mass: 0.3 } // responsive but not instant
 const SCALE_SPRING = { damping: 25, stiffness: 300, mass: 0.2 }
 const TIER1_COUNT = 20
 
@@ -101,8 +102,9 @@ interface InfiniteGridProps {
 }
 
 const InfiniteGrid = ({ photos, width, height }: InfiniteGridProps) => {
-  const containerSize = { width, height }
+  const containerRef = useRef<HTMLDivElement>(null)
   const [isDragging, setIsDragging] = useState(false)
+  const [isTouchDevice, setIsTouchDevice] = useState(false)
   const [shouldReduceMotion, setShouldReduceMotion] = useState(() =>
     typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
   )
@@ -114,17 +116,23 @@ const InfiniteGrid = ({ photos, width, height }: InfiniteGridProps) => {
     return () => mq.removeEventListener('change', handleChange)
   }, [])
 
+  useEffect(() => {
+    setIsTouchDevice(window.matchMedia('(pointer: coarse)').matches)
+  }, [])
+
   const rawX = useMotionValue(0)
   const rawY = useMotionValue(0)
-  const x = useSpring(rawX, SPRING_CONFIG)
-  const y = useSpring(rawY, SPRING_CONFIG)
-  const mouseX = useMotionValue(0)
-  const mouseY = useMotionValue(0)
+  const x = useSpring(rawX, isTouchDevice ? MOBILE_SPRING : SPRING_CONFIG)
+  const y = useSpring(rawY, isTouchDevice ? MOBILE_SPRING : SPRING_CONFIG)
+
+  // Track mouse relative to the grid container — fixes the hover offset
+  const mouseX = useMotionValue(-9999)
+  const mouseY = useMotionValue(-9999)
 
   const shuffledImages = useMemo(() => shuffleArray(photos), [photos])
   useImagePreloader(shuffledImages, TIER1_COUNT)
 
-  const metrics = useMemo(() => getGridMetrics(containerSize), [width, height])
+  const metrics = useMemo(() => getGridMetrics({ width, height }), [width, height])
 
   const gridConfig = useMemo(() => {
     const { totalCell } = metrics
@@ -166,16 +174,24 @@ const InfiniteGrid = ({ photos, width, height }: InfiniteGridProps) => {
   }, [rawX, rawY])
   const onPanEnd = useCallback(() => setIsDragging(false), [])
 
+  const handleMouseMove = useCallback((e: React.MouseEvent) => {
+    const rect = containerRef.current?.getBoundingClientRect()
+    if (!rect) return
+    mouseX.set(e.clientX - rect.left)
+    mouseY.set(e.clientY - rect.top)
+  }, [mouseX, mouseY])
+
+  const handleMouseLeave = useCallback(() => {
+    mouseX.set(-9999)
+    mouseY.set(-9999)
+  }, [mouseX, mouseY])
+
   return (
     <div
+      ref={containerRef}
       aria-hidden="true"
-      onMouseMove={(e) => { mouseX.set(e.clientX); mouseY.set(e.clientY) }}
-      onTouchMove={(e) => {
-        if (e.touches.length > 0) {
-          mouseX.set(e.touches[0].clientX)
-          mouseY.set(e.touches[0].clientY)
-        }
-      }}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
       style={{ width, height, overflow: 'hidden', position: 'relative' }}
       className="select-none rounded-lg"
     >
