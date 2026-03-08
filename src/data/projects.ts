@@ -61,7 +61,7 @@ export const projects: ProjectData[] = [
   },
   {
     id: "cycloidal-actuator",
-    title: "internal cycloidal actuator",
+    title: "internal cycloidal actuator dsa;lfj;ldsafj;ldsajf;ljfdsa;lsajd dlsakfj;ldsakfj;lsajf",
     date: "2025",
     featured: true,
     coverImage: cycloidalImg,
@@ -78,11 +78,11 @@ export const projects: ProjectData[] = [
     ],
   },
   {
-    id: "cycloidal-actuator",
+    id: "cycloidal-actuator dsafdslfjdsa;f",
     title: "internal cycloidal actuator",
     date: "2025",
-    featured: true,
-    coverImage: cycloidalImg,
+    featured: false,
+    coverImage: ft3,
     summary: "engineered a compact 7:1 cycloidal actuator for dynamic robotic joints at low cost.",
     bullets: [
       "engineered a compact 7:1 cycloidal actuator for dynamic robotic joints at low cost.",
@@ -96,7 +96,7 @@ export const projects: ProjectData[] = [
     ],
   },
   {
-    id: "cycloidal-actuator",
+    id: "cycloidal-actuatoradsfdsafdsafdsafdafdsafdsafdsfdsafsadf",
     title: "internal cycloidal actuator",
     date: "2025",
     featured: true,
