@@ -15,7 +15,6 @@ const useIsMobile = () => {
 const MAX_HEIGHT = 400;
 const MAX_GAP = 50;
 
-// Loads image dimensions before rendering
 const useImageDimensions = (srcs: string[]) => {
   const [dims, setDims] = useState<{ w: number; h: number }[] | null>(null);
   useEffect(() => {
@@ -55,7 +54,6 @@ const ImageBlock = ({ images }: { images: string[] }) => {
 
   if (images.length === 0) return null;
 
-  // Mobile: stack vertically, full width, natural aspect ratio
   if (isMobile) {
     return (
       <div className="flex flex-col gap-2 w-full">
@@ -66,47 +64,27 @@ const ImageBlock = ({ images }: { images: string[] }) => {
     );
   }
 
-  // While measuring, render invisible placeholder
   if (!dims || containerWidth === 0) {
     return <div ref={containerRef} className="w-full" style={{ height: MAX_HEIGHT }} />;
   }
 
   const n = images.length;
   const gaps = n - 1;
-
-  // Step 1: scale all images to share the same height H such that total width = containerWidth
-  // At height H, image i has width = H * (dims[i].w / dims[i].h)
-  // Sum of widths + gaps*gap = containerWidth
-  // First try gap=0 to find the natural shared height
   const sumAspects = dims.reduce((acc, d) => acc + d.w / d.h, 0);
-
-  // naturalH = containerWidth / sumAspects (with 0 gap)
   const naturalH = containerWidth / sumAspects;
 
   let finalHeight: number;
   let finalGap: number;
 
   if (naturalH <= MAX_HEIGHT) {
-    // Images fit within max height at full width with no gap needed
-    // Now find gap: containerWidth = H * sumAspects + gaps * gap
-    // gap = (containerWidth - H * sumAspects) / gaps
-    // But naturalH already makes sum of widths = containerWidth with gap=0
-    // So just use a fixed small gap and let images not fully fill (they're already at natural fit)
     finalHeight = naturalH;
-    finalGap = gaps > 0 ? Math.min(MAX_GAP, 12) : 0;
+    finalGap = gaps > 0 ? 12 : 0;
   } else {
-    // Height exceeds max — fix at MAX_HEIGHT and find gap to fill width
     finalHeight = MAX_HEIGHT;
     const totalImgWidth = dims.reduce((acc, d) => acc + finalHeight * (d.w / d.h), 0);
     const remainingSpace = containerWidth - totalImgWidth;
     const neededGap = gaps > 0 ? remainingSpace / gaps : 0;
-
-    if (neededGap <= MAX_GAP) {
-      finalGap = Math.max(0, neededGap);
-    } else {
-      // Gap would be too large — don't force full width, just use MAX_GAP
-      finalGap = MAX_GAP;
-    }
+    finalGap = neededGap <= MAX_GAP ? Math.max(0, neededGap) : MAX_GAP;
   }
 
   return (
