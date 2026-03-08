@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import {
   Dialog,
   DialogContent,
@@ -6,6 +6,7 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
+import InfiniteGrid from "@/components/InfiniteGrid";
 
 import toyotaImg from "@/assets/toyota.jpg";
 import gmImg from "@/assets/gm.jpg";
@@ -115,76 +116,25 @@ const EntryRow = ({
   </button>
 );
 
-const PhotoCarousel = ({ photos }: { photos: string[] }) => {
-  const [index, setIndex] = useState(0);
+// Measures the dialog content area so the grid fills it exactly
+const FreeTimeGrid = ({ photos }: { photos: string[] }) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const [size, setSize] = useState({ width: 0, height: 0 });
 
-  if (photos.length === 0) {
-    return (
-      <p className="text-muted-foreground text-sm text-center py-10">
-        no photos yet — add them to src/assets/freetime/ and import in index.tsx
-      </p>
-    );
-  }
-
-  const prev = () => setIndex((i) => (i - 1 + photos.length) % photos.length);
-  const next = () => setIndex((i) => (i + 1) % photos.length);
+  useEffect(() => {
+    if (!ref.current) return;
+    const observer = new ResizeObserver((entries) => {
+      const { width, height } = entries[0].contentRect;
+      setSize({ width, height });
+    });
+    observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <div className="space-y-4">
-      {/* Fixed-height container — image fits inside, no layout shift */}
-      <div
-        className="relative group rounded-md border border-border overflow-hidden"
-        style={{ height: "420px", backgroundColor: "hsl(var(--background))" }}
-      >
-        <img
-          src={photos[index]}
-          alt={`free time ${index + 1}`}
-          style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }}
-        />
-
-        {photos.length > 1 && (
-          <>
-            <button
-              onClick={prev}
-              className="absolute left-2 top-1/2 -translate-y-1/2 bg-background/80 border border-border rounded px-2 py-1 text-sm hover:bg-muted transition-colors opacity-0 group-hover:opacity-100"
-            >
-              ‹
-            </button>
-            <button
-              onClick={next}
-              className="absolute right-2 top-1/2 -translate-y-1/2 bg-background/80 border border-border rounded px-2 py-1 text-sm hover:bg-muted transition-colors opacity-0 group-hover:opacity-100"
-            >
-              ›
-            </button>
-          </>
-        )}
-      </div>
-
-      {/* Counter */}
-      {photos.length > 1 && (
-        <p className="text-center text-muted-foreground text-xs">
-          {index + 1} / {photos.length}
-        </p>
-      )}
-
-      {/* Thumbnail strip — natural aspect ratio thumbnails */}
-      {photos.length > 1 && (
-        <div className="flex gap-2 overflow-x-auto pb-1">
-          {photos.map((src, i) => (
-            <button key={i} onClick={() => setIndex(i)} className="shrink-0">
-              <img
-                src={src}
-                alt={`thumb ${i}`}
-                style={{ height: "56px", width: "auto", display: "block" }}
-                className={`rounded border transition-all ${
-                  i === index
-                    ? "border-foreground opacity-100"
-                    : "border-border opacity-40 hover:opacity-80"
-                }`}
-              />
-            </button>
-          ))}
-        </div>
+    <div ref={ref} style={{ width: "100%", height: "60vh" }}>
+      {size.width > 0 && (
+        <InfiniteGrid photos={photos} width={size.width} height={size.height} />
       )}
     </div>
   );
@@ -322,18 +272,16 @@ const Index = () => {
         </DialogContent>
       </Dialog>
 
-      {/* ── Free Time Photo Dialog ── */}
+      {/* ── Free Time Infinite Grid Dialog ── */}
       <Dialog open={freeTimeOpen} onOpenChange={setFreeTimeOpen}>
-        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto scrollbar-thin font-mono lowercase bg-background border-border">
-          <DialogHeader>
+        <DialogContent className="max-w-3xl font-mono lowercase bg-background border-border overflow-hidden p-0">
+          <div className="px-6 pt-6 pb-3">
             <DialogTitle className="text-foreground font-bold text-lg">free time</DialogTitle>
             <DialogDescription className="text-muted-foreground">
-              life outside the shop
+              drag to explore
             </DialogDescription>
-          </DialogHeader>
-          <div className="mt-4">
-            <PhotoCarousel photos={freeTimePhotos} />
           </div>
+          <FreeTimeGrid photos={freeTimePhotos} />
         </DialogContent>
       </Dialog>
     </div>
