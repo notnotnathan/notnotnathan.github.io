@@ -240,7 +240,7 @@ const Index = () => {
           <div className="space-y-1 text-muted-foreground">
             <p>software: solidworks, nx, catia 3dx, ansys, autocad, excel</p>
             <p>programming: python, c++, matlab, ros2, arduino</p>
-            <p>prototyping: machining, gd&t, 3d printing, laser cutting, soldering</p>
+            <p>fabrication: machining, welding, gd&t, 3d printing, laser cutting, soldering</p>
           </div>
         </section>
 
