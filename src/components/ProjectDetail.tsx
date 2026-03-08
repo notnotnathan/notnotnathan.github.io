@@ -39,7 +39,7 @@ const ImageBlock = ({ images }: { images: string[] }) => {
 // Left column text stays within its column even if it overflows the image height.
 // Bullets never wrap under the image.
 const ProjectDetail = ({ project }: { project: ProjectData }) => {
-  const COVER_SIZE = 200;
+  const COVER_SIZE = 300;
 
   return (
     <div className="space-y-6 mt-2">
