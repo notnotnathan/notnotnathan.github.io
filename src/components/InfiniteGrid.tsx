@@ -3,7 +3,7 @@ import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import { useImagePreloader } from '@/hooks/useImagePreloader'
 
 const SPRING_CONFIG = { damping: 40, stiffness: 200, mass: 0.5 }
-const MOBILE_SPRING = { damping: 60, stiffness: 600, mass: 0.3 } // responsive but not instant
+const MOBILE_SPRING = { damping: 80, stiffness: 1500, mass: 0.2 } // responsive but not instant
 const SCALE_SPRING = { damping: 25, stiffness: 300, mass: 0.2 }
 const TIER1_COUNT = 20
 
