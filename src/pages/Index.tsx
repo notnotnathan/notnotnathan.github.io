@@ -12,15 +12,53 @@ import toyotaImg from "@/assets/toyota.jpg";
 import gmImg from "@/assets/gm.jpg";
 import cycloidalImg from "@/assets/cycloidal-actuator.jpg";
 import pancakeImg from "@/assets/pancake-printer.jpg";
-import ft1 from "@/assets/freetime/anglerjax.png";
-import ft2 from "@/assets/freetime/fizz.png";
-import ft3 from "@/assets/freetime/nasus.png";
-import ft4 from "@/assets/freetime/mundo.png";
-import ft5 from "@/assets/freetime/thresh.png";
-import ft6 from "@/assets/freetime/zilean.png";
+import ft100 from "@/assets/freetime/anglerjax.png";
+import ft200 from "@/assets/freetime/fizz.png";
+import ft300 from "@/assets/freetime/nasus.png";
+import ft400 from "@/assets/freetime/mundo.png";
+import ft500 from "@/assets/freetime/thresh.png";
+import ft600 from "@/assets/freetime/zilean.png";
+import ft1 from "@/assets/freetime/1.jpg";
+import ft2 from "@/assets/freetime/2.jpg";
+import ft3 from "@/assets/freetime/3.jpg";
+import ft4 from "@/assets/freetime/4.jpg";
+import ft5 from "@/assets/freetime/5.jpg";
+import ft6 from "@/assets/freetime/6.jpg";
+import ft7 from "@/assets/freetime/7.jpg";
+import ft8 from "@/assets/freetime/8.jpg";
+import ft9 from "@/assets/freetime/9.jpg";
+import ft10 from "@/assets/freetime/10.jpg";
+import ft11 from "@/assets/freetime/11.jpg";
+import ft12 from "@/assets/freetime/12.jpg";
+import ft13 from "@/assets/freetime/13.jpg";
+import ft14 from "@/assets/freetime/14.jpg";
+import ft15 from "@/assets/freetime/15.jpg";
+import ft16 from "@/assets/freetime/16.jpg";
+import ft17 from "@/assets/freetime/17.jpg";
+import ft18 from "@/assets/freetime/18.jpg";
+import ft19 from "@/assets/freetime/19.jpg";
+import ft20 from "@/assets/freetime/20.jpg";
+import ft21 from "@/assets/freetime/21.jpg";
+import ft22 from "@/assets/freetime/22.jpg";
+import ft23 from "@/assets/freetime/23.jpg";
+import ft24 from "@/assets/freetime/24.jpg";
+import ft25 from "@/assets/freetime/25.jpg";
+import ft26 from "@/assets/freetime/26.jpg";
+import ft27 from "@/assets/freetime/27.jpg";
+import ft28 from "@/assets/freetime/28.jpg";
+import ft29 from "@/assets/freetime/29.jpg";
+import ft30 from "@/assets/freetime/30.jpg";
+import ft31 from "@/assets/freetime/31.jpg";
+import ft32 from "@/assets/freetime/32.jpg";
+import ft33 from "@/assets/freetime/33.jpg";
+import ft34 from "@/assets/freetime/34.jpg";
+import ft35 from "@/assets/freetime/35.jpg";
+
 
 const freeTimePhotos: string[] = [
-  ft1, ft2, ft3, ft4, ft5, ft6
+  ft100, ft200, ft300, ft400, ft500, ft600, ft1, ft2, ft3, ft4, ft5, ft6, ft7, ft8, ft9, ft10, ft11, ft12, ft13, ft14, ft15, 
+  ft16, ft17, ft18, ft19, ft20, ft21, ft22, ft23, ft24, ft25, ft26, ft27, ft28, ft29, ft30, ft31, ft32, ft33, ft34, ft35	
+
 ];
 
 // ─── Types ────────────────────────────────────────────────────────────────────
