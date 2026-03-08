@@ -53,6 +53,13 @@ import ft32 from "@/assets/freetime/32.jpg";
 import ft33 from "@/assets/freetime/33.jpg";
 import ft34 from "@/assets/freetime/34.jpg";
 import ft35 from "@/assets/freetime/35.jpg";
+import ft36 from "@/assets/freetime/36.jpg";
+import ft37 from "@/assets/freetime/37.jpg";
+import ft38 from "@/assets/freetime/38.jpg";
+import ft39 from "@/assets/freetime/39.jpg";
+import ft40 from "@/assets/freetime/40.jpg";
+import ft41 from "@/assets/freetime/41.jpg";
+import ft42 from "@/assets/freetime/42.jpg";
 
 import mu1 from "@/assets/freetime/lalaland.png";
 import mu2 from "@/assets/freetime/ram.png";
