@@ -251,7 +251,7 @@ const Index = () => {
           <h2 className="text-lg font-bold">technical skills</h2>
           <div className="space-y-1 text-muted-foreground">
             <p>software: solidworks, nx, catia 3dx, ansys, autocad, excel</p>
-            <p>programming: python, c++, matlab, ros2, arduino</p>
+            <p>programming: python, c++, matlab, ros2, arduino, stm32, esp32</p>
             <p>fabrication: machining, welding, gd&t, 3d printing, laser cutting, soldering</p>
           </div>
         </section>
