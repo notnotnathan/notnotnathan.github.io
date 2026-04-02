@@ -50,7 +50,7 @@ const ProjectDetail = ({ project }: { project: ProjectData }) => {
       {isMobile ? (
         <div className="space-y-4">
           <div className="flex gap-3 items-start">
-            <p className="text-foreground text-base font-semibold flex-1 min-w-0">{project.summary}</p>
+            <p className="text-foreground text-xl font-bold flex-1 min-w-0">{project.summary}</p>
             <img
               src={project.coverImage}
               alt={project.title}
@@ -68,7 +68,7 @@ const ProjectDetail = ({ project }: { project: ProjectData }) => {
       ) : (
         <div className="grid gap-4" style={{ gridTemplateColumns: `1fr ${COVER_SIZE}px` }}>
           <div className="space-y-4 min-w-0">
-            <p className="text-foreground text-base">{project.summary}</p>
+            <p className="text-foreground text-xl font-bold">{project.summary}</p>
             <ul className="space-y-2 text-base text-muted-foreground list-disc list-inside">
               {project.bullets.map((b, i) => (
                 <li key={i}>{b}</li>
@@ -88,7 +88,7 @@ const ProjectDetail = ({ project }: { project: ProjectData }) => {
       )}
 
       {project.blocks && project.blocks.length > 0 && (
-        <div className="space-y-6 border-t border-border pt-6">
+        <div className="space-y-6">
           {project.blocks.map((block: Block, i: number) => {
             if (block.type === "text") {
               return (
