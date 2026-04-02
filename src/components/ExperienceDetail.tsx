@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import { ExperienceData } from "@/data/experiences";
-import { Block } from "@/data/projects";
+import { ProjectData, Block } from "@/data/projects";
 
 const useIsMobile = () => {
   const [isMobile, setIsMobile] = useState(() => window.innerWidth < 640);
@@ -42,21 +41,55 @@ const ImageBlock = ({ images, height = 400, gap = 30 }: { images: string[]; heig
   );
 };
 
-const ExperienceDetail = ({ experience }: { experience: ExperienceData }) => {
+const ProjectDetail = ({ project }: { project: ProjectData }) => {
+  const isMobile = useIsMobile();
+  const COVER_SIZE = isMobile ? Math.round(window.innerWidth * 0.42) : 250;
+
   return (
     <div className="space-y-6 mt-2">
-      <div className="space-y-4">
-        <p className="text-foreground text-base">{experience.summary}</p>
-        <ul className="space-y-2 text-base text-muted-foreground list-disc list-inside">
-          {experience.bullets.map((b, i) => (
-            <li key={i}>{b}</li>
-          ))}
-        </ul>
-      </div>
+      {isMobile ? (
+        <div className="space-y-4">
+          <div className="flex gap-3 items-start">
+            <p className="text-foreground text-xl font-bold flex-1 min-w-0">{project.summary}</p>
+            <img
+              src={project.coverImage}
+              alt={project.title}
+              className="rounded-md border border-border object-cover shrink-0"
+              style={{ width: COVER_SIZE, height: COVER_SIZE }}
+              loading="lazy"
+            />
+          </div>
+          <ul className="space-y-2 text-base text-muted-foreground list-disc list-inside w-full">
+            {project.bullets.map((b, i) => (
+              <li key={i}>{b}</li>
+            ))}
+          </ul>
+        </div>
+      ) : (
+        <div className="grid gap-4" style={{ gridTemplateColumns: `1fr ${COVER_SIZE}px` }}>
+          <div className="space-y-4 min-w-0">
+            <p className="text-foreground text-xl font-bold">{project.summary}</p>
+            <ul className="space-y-2 text-base text-muted-foreground list-disc list-inside">
+              {project.bullets.map((b, i) => (
+                <li key={i}>{b}</li>
+              ))}
+            </ul>
+          </div>
+          <div className="shrink-0">
+            <img
+              src={project.coverImage}
+              alt={project.title}
+              className="rounded-md border border-border object-cover"
+              style={{ width: COVER_SIZE, height: COVER_SIZE }}
+              loading="lazy"
+            />
+          </div>
+        </div>
+      )}
 
-      {experience.blocks && experience.blocks.length > 0 && (
-        <div className="space-y-6 border-t border-border pt-6">
-          {experience.blocks.map((block: Block, i: number) => {
+      {project.blocks && project.blocks.length > 0 && (
+        <div className="space-y-6">
+          {project.blocks.map((block: Block, i: number) => {
             if (block.type === "text") {
               return (
                 <p key={i} className="text-base text-foreground/80">
@@ -75,4 +108,4 @@ const ExperienceDetail = ({ experience }: { experience: ExperienceData }) => {
   );
 };
 
-export default ExperienceDetail;
+export default ProjectDetail;
