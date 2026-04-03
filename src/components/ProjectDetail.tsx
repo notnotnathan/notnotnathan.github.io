@@ -50,7 +50,7 @@ const ProjectDetail = ({ project }: { project: ProjectData }) => {
       {isMobile ? (
         <div className="space-y-4">
           <div className="flex gap-3 items-start">
-            <p className="text-foreground text-base font-semibold flex-1 min-w-0">{project.summary}</p>
+            <p className="text-foreground text-xl font-bold flex-1 min-w-0">{project.summary}</p>
             <img
               src={project.coverImage}
               alt={project.title}
@@ -59,19 +59,19 @@ const ProjectDetail = ({ project }: { project: ProjectData }) => {
               loading="lazy"
             />
           </div>
-          <ul className="space-y-2 text-base text-muted-foreground list-disc list-inside w-full">
+          <ul className="space-y-2 text-base text-muted-foreground list-none w-full">
             {project.bullets.map((b, i) => (
-              <li key={i}>{b}</li>
+              <li key={i}><span className="text-muted-foreground/50 mr-2">{">"}</span>{b}</li>
             ))}
           </ul>
         </div>
       ) : (
         <div className="grid gap-4" style={{ gridTemplateColumns: `1fr ${COVER_SIZE}px` }}>
           <div className="space-y-4 min-w-0">
-            <p className="text-foreground text-base">{project.summary}</p>
-            <ul className="space-y-2 text-base text-muted-foreground list-disc list-inside">
+            <p className="text-foreground text-xl font-bold">{project.summary}</p>
+            <ul className="space-y-2 text-base text-muted-foreground list-none">
               {project.bullets.map((b, i) => (
-                <li key={i}>{b}</li>
+                <li key={i}><span className="text-muted-foreground/50 mr-2">{">"}</span>{b}</li>
               ))}
             </ul>
           </div>
@@ -88,7 +88,7 @@ const ProjectDetail = ({ project }: { project: ProjectData }) => {
       )}
 
       {project.blocks && project.blocks.length > 0 && (
-        <div className="space-y-6 border-t border-border pt-6">
+        <div className="space-y-6">
           {project.blocks.map((block: Block, i: number) => {
             if (block.type === "text") {
               return (
