@@ -46,9 +46,9 @@ const ExperienceDetail = ({ experience }: { experience: ExperienceData }) => {
   return (
     <div className="space-y-6 mt-2">
       <div className="space-y-4">
-        <ul className="space-y-2 text-base text-muted-foreground list-disc list-inside">
+        <ul className="space-y-2 text-base text-muted-foreground list-none">
           {experience.bullets.map((b, i) => (
-            <li key={i}>{b}</li>
+            <li key={i}><span className="text-muted-foreground/50 mr-2">{">"}</span>{b}</li>
           ))}
         </ul>
       </div>
