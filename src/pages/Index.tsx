@@ -202,9 +202,6 @@ const Index = () => {
 
         {/* Contact */}
         <section className="space-y-1">
-          <p className="font-semibold">
-            <a href="https://nathanma.ca" className="hover:underline">nathanma.ca</a>
-          </p>
           <p className="text-muted-foreground">
             <a href="https://linkedin.com/in/nathanma0" className="hover:underline">linkedin.com/in/nathanma0</a>
           </p>
