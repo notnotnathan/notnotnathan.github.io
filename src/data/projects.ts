@@ -7,7 +7,7 @@
 
 import quadrupedImg from "@/assets/quadruped.png";
 import cycloidalImg from "@/assets/cycloidal-actuator.jpg";
-import pancakeImg from "@/assets/pancake-printer.jpg";
+import pancakeImg from "@/assets/pancake-printer.png";
 import ft36 from "@/assets/freetime/36.jpg";
 import ft3 from "@/assets/freetime/3.jpg";
 import ft4 from "@/assets/freetime/4.jpg";
