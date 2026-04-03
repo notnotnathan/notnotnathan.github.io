@@ -46,7 +46,6 @@ const ExperienceDetail = ({ experience }: { experience: ExperienceData }) => {
   return (
     <div className="space-y-6 mt-2">
       <div className="space-y-4">
-        <p className="text-foreground text-base">{experience.summary}</p>
         <ul className="space-y-2 text-base text-muted-foreground list-disc list-inside">
           {experience.bullets.map((b, i) => (
             <li key={i}>{b}</li>
@@ -55,7 +54,7 @@ const ExperienceDetail = ({ experience }: { experience: ExperienceData }) => {
       </div>
 
       {experience.blocks && experience.blocks.length > 0 && (
-        <div className="space-y-6 border-t border-border pt-6">
+        <div className="space-y-6">
           {experience.blocks.map((block: Block, i: number) => {
             if (block.type === "text") {
               return (
