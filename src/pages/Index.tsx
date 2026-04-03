@@ -216,7 +216,7 @@ const Index = () => {
 
       {/* ── Detail Dialog ── */}
       <Dialog open={!!selected} onOpenChange={(open) => !open && setSelected(null)}>
-        <DialogContent className="max-w-screen-xl w-[95vw] max-h-[95vh] h-[95vh] overflow-y-auto scrollbar-thin font-mono lowercase bg-background border-border">
+        <DialogContent className="max-w-4xl max-h-[85vh] overflow-y-auto scrollbar-thin font-mono lowercase bg-background border-border">
           {selected && (
             <>
               <DialogHeader>
