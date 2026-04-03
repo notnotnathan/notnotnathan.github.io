@@ -5,6 +5,7 @@
 //   { type: "text", content: "your paragraph here" }
 //   { type: "images", images: [img1, img2], height: 400, gap: 30 }  — both optional
 
+import quadrupedImg from "@/assets/quadruped.jpg";
 import cycloidalImg from "@/assets/cycloidal-actuator.jpg";
 import pancakeImg from "@/assets/pancake-printer.jpg";
 import ft36 from "@/assets/freetime/36.jpg";
@@ -28,21 +29,35 @@ export interface ProjectData {
 
 export const projects: ProjectData[] = [
   {
+    id: "servo-quadruped",
+    title: "rc servo quadruped",
+    date: "2025",
+    featured: true,
+    coverImage: quadrupedImg,
+    summary: "say hello to my little friend",
+    bullets: [
+      "designed 12 dof quadruped using hobby rc servos.",
+      "optimized design and tolerances for 3d printing and assembly.",
+      "custom 12 channel servo driver",
+    ],
+    blocks: [
+      { type: "text", content: "work in progress." },
+    ],
+  },
+  {
     id: "cycloidal-actuator",
     title: "internal cycloidal actuator",
     date: "2025",
     featured: true,
     coverImage: cycloidalImg,
-    summary: "engineered a compact 7:1 cycloidal actuator for dynamic robotic joints at low cost.",
+    summary: "spins",
     bullets: [
       "engineered a compact 7:1 cycloidal actuator for dynamic robotic joints at low cost.",
       "performed iterative design on gear and housing tolerances to reduce backlash while preserving backdrivability and achieving smooth, reliable motion.",
     ],
     blocks: [
-      { type: "text", content: "lorem ipsum block one. this is the first paragraph of detail about the actuator design process, tolerances, and goals." },
+      { type: "text", content: "find photo" },
       { type: "images", images: [ft36, cycloidalImg, pancakeImg], height: 200, gap: 15 },
-      { type: "text", content: "lorem ipsum block two. this covers the testing phase, results, and what was learned from the iterative design process." },
-      { type: "images", images: [ft3, ft4], height: 300, gap: 50 },
     ],
   },
   {
@@ -51,7 +66,7 @@ export const projects: ProjectData[] = [
     date: "2025",
     featured: true,
     coverImage: pancakeImg,
-    summary: "built a functional 2d gantry pancake printer integrating tetrix structural components, lego ev3 motors, and custom 3d-printed adapters.",
+    summary: "pancake printer for class project",
     bullets: [
       "built a functional 2d gantry pancake printer integrating tetrix structural components, lego ev3 motors, and custom 3d-printed adapters.",
       "designed a cad assembly in solidworks, ensuring mechanical fitments and reducing prototyping time.",
