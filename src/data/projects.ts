@@ -5,7 +5,7 @@
 //   { type: "text", content: "your paragraph here" }
 //   { type: "images", images: [img1, img2], height: 400, gap: 30 }  — both optional
 
-import quadrupedImg from "@/assets/quadruped.png";
+import quadrupedImg from "@/assets/quadruped.jpeg";
 import cycloidalImg from "@/assets/cycloidal-actuator.jpg";
 import pancakeImg from "@/assets/pancake-printer.png";
 import ft36 from "@/assets/freetime/36.jpg";
