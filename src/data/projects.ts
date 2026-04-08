@@ -42,20 +42,20 @@ export interface ProjectData {
 export const projects: ProjectData[] = [
   {
     id: "servo-quadruped",
-    title: "rc servo quadruped",
-    date: "2025",
+    title: "hobby servo quadruped",
+    date: "2026",
     featured: true,
     coverImage: quadrupedImg0,
     summary: "say hello to my little friend",
     bullets: [
       "designed 12 dof quadruped using hobby rc servos.",
       "optimized design and tolerances for 3d printing and assembly.",
-      "custom 12 channel servo driver",
+      "currently working on custom 12 channel servo driver",
     ],
     blocks: [
       { type: "text", content: "work in progress." },
-      { type: "images", images: [quadrupedImg1, quadrupedImg2], height: 300, gap: 15 },
-      { type: "images", images: [quadrupedImg3, quadrupedImg4], height: 300, gap: 15 },
+      { type: "images", images: [quadrupedImg1, quadrupedImg2], height: 300, gap: 20 },
+      { type: "images", images: [quadrupedImg3, quadrupedImg4], height: 300, gap: 20 },
     ],
   },
   {
@@ -64,16 +64,17 @@ export const projects: ProjectData[] = [
     date: "2025",
     featured: true,
     coverImage: cycloidalImg0,
-    summary: "spins",
+    summary: "this spins",
     bullets: [
       "engineered a compact 7:1 cycloidal actuator for dynamic robotic joints at low cost.",
       "performed iterative design on gear and housing tolerances to reduce backlash while preserving backdrivability and achieving smooth, reliable motion.",
+      "currently working on having the components machined",
     ],
     blocks: [
-      { type: "images", images: [cycloidalImg1, cycloidalImg2], height: 300, gap: 15 },
-      { type: "images", images: [cycloidalImg3, cycloidalImg4], height: 300, gap: 15 },
-      { type: "images", images: [cycloidalImg5, realCycloidalImg1], height: 300, gap: 15 },
-      { type: "images", images: [realCycloidalImg2, realCycloidalImg3], height: 300, gap: 15 },
+      { type: "images", images: [cycloidalImg1, cycloidalImg2], height: 300, gap: 20 },
+      { type: "images", images: [cycloidalImg3, cycloidalImg4], height: 300, gap: 20 },
+      { type: "images", images: [cycloidalImg5, realCycloidalImg1], height: 300, gap: 20 },
+      { type: "images", images: [realCycloidalImg2, realCycloidalImg3], height: 300, gap: 20 },
       
     ],
   },
