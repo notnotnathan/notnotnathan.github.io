@@ -10,7 +10,9 @@ import quadrupedImg1 from "@/assets/quadruped1.png";
 import quadrupedImg2 from "@/assets/quadruped2.png";
 import quadrupedImg3 from "@/assets/quadruped3.png";
 import quadrupedImg4 from "@/assets/quadruped4.png";
-import cycloidalImg from "@/assets/cycloidal-actuator.jpg";
+import realCycloidalImg1 from "@/assets/cycloidal-actuator1.jpg";
+import realCycloidalImg2 from "@/assets/cycloidal-actuator2.jpg";
+import realCycloidalImg3 from "@/assets/cycloidal-actuator3.jpg";
 import cycloidalImg0 from "@/assets/gearbox0.png";
 import cycloidalImg1 from "@/assets/gearbox1.png";
 import cycloidalImg2 from "@/assets/gearbox2.png";
@@ -70,7 +72,8 @@ export const projects: ProjectData[] = [
     blocks: [
       { type: "images", images: [cycloidalImg1, cycloidalImg2], height: 300, gap: 15 },
       { type: "images", images: [cycloidalImg3, cycloidalImg4], height: 300, gap: 15 },
-      { type: "images", images: [cycloidalImg5, cycloidalImg], height: 300, gap: 15 },
+      { type: "images", images: [cycloidalImg5, realCycloidalImg1], height: 300, gap: 15 },
+      { type: "images", images: [realCycloidalImg2, realCycloidalImg3], height: 300, gap: 15 },
       
     ],
   },
