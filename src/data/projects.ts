@@ -50,7 +50,7 @@ export const projects: ProjectData[] = [
     bullets: [
       "designed 12 dof quadruped using hobby rc servos.",
       "optimized design and tolerances for 3d printing and assembly.",
-      "hierarchical control architecture using custom 12-channel stm32 driver for low-level servo control, raspberry pi for high-level perception, mapping, and motion planning, with lidar for environmental sensing
+      "hierarchical control architecture using custom 12-channel stm32 driver for low-level servo control, raspberry pi for high-level perception, mapping, and motion planning, with lidar for environmental sensing",
     blocks: [
       { type: "images", images: [quadrupedImg1, quadrupedImg2], height: 300, gap: 20 },
       { type: "images", images: [quadrupedImg3, quadrupedImg4], height: 300, gap: 20 },
