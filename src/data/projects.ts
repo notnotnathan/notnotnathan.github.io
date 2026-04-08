@@ -68,7 +68,7 @@ export const projects: ProjectData[] = [
     bullets: [
       "engineered a compact 7:1 cycloidal actuator for dynamic robotic joints at low cost.",
       "performed iterative design on gear and housing tolerances to reduce backlash while preserving backdrivability and achieving smooth, reliable motion.",
-      "currently working on having the components machined",
+      "currently having components fabricated",
     ],
     blocks: [
       { type: "images", images: [cycloidalImg1, cycloidalImg2], height: 300, gap: 30 },
