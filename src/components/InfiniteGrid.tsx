@@ -8,7 +8,7 @@ const SCALE_SPRING = { damping: 25, stiffness: 300, mass: 0.2 }
 
 function getGridMetrics(containerSize: { width: number; height: number }) {
   const shortSide = Math.min(containerSize.width, containerSize.height)
-  const cellSize = Math.round(Math.min(320, Math.max(140, shortSide * 0.22)))
+  const cellSize = Math.round(Math.min(420, Math.max(140, shortSide * 0.22)))
   const gap = Math.max(10, Math.round(cellSize * 0.09))
   const totalCell = cellSize + gap
   const hoverRadius = cellSize * 1.25
