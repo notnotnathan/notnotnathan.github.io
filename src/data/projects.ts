@@ -5,7 +5,11 @@
 //   { type: "text", content: "your paragraph here" }
 //   { type: "images", images: [img1, img2], height: 400, gap: 30 }  — both optional
 
-import quadrupedImg from "@/assets/quadruped.jpeg";
+import quadrupedImg0 from "@/assets/quadruped0.png";
+import quadrupedImg1 from "@/assets/quadruped1.png";
+import quadrupedImg2 from "@/assets/quadruped2.png";
+import quadrupedImg3 from "@/assets/quadruped3.png";
+import quadrupedImg4 from "@/assets/quadruped4.png";
 import cycloidalImg from "@/assets/cycloidal-actuator.jpg";
 import pancakeImg from "@/assets/pancake-printer.png";
 import ft36 from "@/assets/freetime/36.jpg";
@@ -33,7 +37,7 @@ export const projects: ProjectData[] = [
     title: "rc servo quadruped",
     date: "2025",
     featured: true,
-    coverImage: quadrupedImg,
+    coverImage: quadrupedImg0,
     summary: "say hello to my little friend",
     bullets: [
       "designed 12 dof quadruped using hobby rc servos.",
@@ -42,6 +46,8 @@ export const projects: ProjectData[] = [
     ],
     blocks: [
       { type: "text", content: "work in progress." },
+      { type: "images", images: [quadrupedImg1, quadrupedImg2], height: 300, gap: 15 },
+      { type: "images", images: [quadrupedImg3, quadrupedImg4], height: 300, gap: 15 },
     ],
   },
   {
