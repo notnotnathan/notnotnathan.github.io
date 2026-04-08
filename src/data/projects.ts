@@ -54,8 +54,8 @@ export const projects: ProjectData[] = [
     ],
     blocks: [
       { type: "text", content: "work in progress." },
-      { type: "images", images: [quadrupedImg1, quadrupedImg2], height: 300, gap: 20 },
-      { type: "images", images: [quadrupedImg3, quadrupedImg4], height: 300, gap: 20 },
+      { type: "images", images: [quadrupedImg1, quadrupedImg2], height: 300, gap: 30 },
+      { type: "images", images: [quadrupedImg3, quadrupedImg4], height: 300, gap: 30 },
     ],
   },
   {
@@ -71,10 +71,10 @@ export const projects: ProjectData[] = [
       "currently working on having the components machined",
     ],
     blocks: [
-      { type: "images", images: [cycloidalImg1, cycloidalImg2], height: 300, gap: 20 },
-      { type: "images", images: [cycloidalImg3, cycloidalImg4], height: 300, gap: 20 },
-      { type: "images", images: [cycloidalImg5, realCycloidalImg1], height: 300, gap: 20 },
-      { type: "images", images: [realCycloidalImg2, realCycloidalImg3], height: 300, gap: 20 },
+      { type: "images", images: [cycloidalImg1, cycloidalImg2], height: 300, gap: 30 },
+      { type: "images", images: [cycloidalImg3, cycloidalImg4], height: 300, gap: 30 },
+      { type: "images", images: [cycloidalImg5, realCycloidalImg1], height: 300, gap: 30 },
+      { type: "images", images: [realCycloidalImg2, realCycloidalImg3], height: 300, gap: 30 },
       
     ],
   },
