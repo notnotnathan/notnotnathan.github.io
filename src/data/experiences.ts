@@ -29,7 +29,7 @@ export const experiences: ExperienceData[] = [
       "conducted time studies for overcycle processes and implemented improvements that reduced unnecessary robot movement and increased process catch-up capability.",
     ],
     blocks: [
-      { type: "images", images: [toyotaImg] },
+      { type: "images", images: [toyotaImg], height: 400},
     ],
   },
   {
@@ -44,7 +44,7 @@ export const experiences: ExperienceData[] = [
       "developed an excel-based readiness document mapping job elements to option codes, tooling, part numbers, and rack sizes — improving efficiency of plant floor changeovers.",
     ],
     blocks: [
-      { type: "images", images: [gmImg] },
+      { type: "images", images: [gmImg], height: 400},
     ],
   },
 ];
