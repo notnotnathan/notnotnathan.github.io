@@ -41,8 +41,8 @@ export interface ProjectData {
 
 export const projects: ProjectData[] = [
   {
-    id: "servo-quadruped",
-    title: "autonomous servo quadruped - work in progress",
+    id: "auto-quadruped",
+    title: "autonomous quadruped - work in progress",
     date: "2026",
     featured: true,
     coverImage: quadrupedImg0,
