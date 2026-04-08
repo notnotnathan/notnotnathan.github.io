@@ -42,7 +42,7 @@ export interface ProjectData {
 export const projects: ProjectData[] = [
   {
     id: "auto-quadruped",
-    title: "autonomous quadruped - work in progress",
+    title: "autonomous quadruped",
     date: "2026",
     featured: true,
     coverImage: quadrupedImg0,
@@ -51,6 +51,7 @@ export const projects: ProjectData[] = [
       "designed 12 dof quadruped using hobby rc servos.",
       "optimized design and tolerances for 3d printing and assembly.",
       "hierarchical control architecture using custom 12-channel stm32 driver for low-level servo control, raspberry pi for high-level perception, mapping, and motion planning, with lidar for environmental sensing",
+      "currently working on custom servo driver",
     ],
     blocks: [
       { type: "images", images: [quadrupedImg1, quadrupedImg2], height: 300, gap: 20 },
