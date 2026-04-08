@@ -11,6 +11,12 @@ import quadrupedImg2 from "@/assets/quadruped2.png";
 import quadrupedImg3 from "@/assets/quadruped3.png";
 import quadrupedImg4 from "@/assets/quadruped4.png";
 import cycloidalImg from "@/assets/cycloidal-actuator.jpg";
+import cycloidalImg0 from "@/assets/gearbox0.png";
+import cycloidalImg1 from "@/assets/gearbox1.png";
+import cycloidalImg2 from "@/assets/gearbox2.png";
+import cycloidalImg3 from "@/assets/gearbox3.png";
+import cycloidalImg4 from "@/assets/gearbox4.png";
+import cycloidalImg5 from "@/assets/gearbox5.png";
 import pancakeImg from "@/assets/pancake-printer.png";
 import ft36 from "@/assets/freetime/36.jpg";
 import ft3 from "@/assets/freetime/3.jpg";
@@ -55,15 +61,17 @@ export const projects: ProjectData[] = [
     title: "internal cycloidal actuator",
     date: "2025",
     featured: true,
-    coverImage: cycloidalImg,
+    coverImage: cycloidalImg0,
     summary: "spins",
     bullets: [
       "engineered a compact 7:1 cycloidal actuator for dynamic robotic joints at low cost.",
       "performed iterative design on gear and housing tolerances to reduce backlash while preserving backdrivability and achieving smooth, reliable motion.",
     ],
     blocks: [
-      { type: "text", content: "find photo" },
-      { type: "images", images: [ft36, cycloidalImg, pancakeImg], height: 200, gap: 15 },
+      { type: "images", images: [cycloidalImg1, cycloidalImg2], height: 300, gap: 15 },
+      { type: "images", images: [cycloidalImg3, cycloidalImg4], height: 300, gap: 15 },
+      { type: "images", images: [cycloidalImg5, cycloidalImg], height: 300, gap: 15 },
+      
     ],
   },
   {
