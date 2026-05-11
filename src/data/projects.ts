@@ -59,6 +59,33 @@ export const projects: ProjectData[] = [
     ],
   },
   {
+    id: "coherix-bracket",
+    title: "coherix sealer vision system — sensor sounting bracket",
+    date: "2026",
+    featured: true,
+    coverImage: quadrupedImg0,
+    summary: "say hello to my little friend",
+    bullets: [
+      "designed 12 dof quadruped using hobby rc servos.",
+      "optimized design and tolerances for 3d printing and assembly.",
+      "hierarchical control architecture using custom 12-channel stm32 driver for low-level servo control, raspberry pi for high-level perception, mapping, and motion planning, with lidar for environmental sensing",
+      "currently working on custom servo driver",
+    ],
+    blocks: [
+      { type: "text", content: "problem" }
+      { type: "text", content: "A vision system integration was scheduled on a hood hemming adhesive sealer process, requiring a bracket to mount the Coherix sensor to the dispense applicator. The bracket had to clear an existing heater and shroud on the applicator while positioning the sensor at the manufacturer-specified 60mm standoff from the application surface, perpendicular within ±5mm and ±5°. End-of-fiscal-year budget pressure added urgency, with the integration needing to close before month's end — a cancellation would have been a significant cost to the program." }
+      { type: "text", content: "approach" }
+      { type: "text", content: "Contacted both the dispense system vendor and vision system vendor for drawings, supplementing with physical measurements to fill gaps where documentation was incomplete. Cross-referenced with similar bracket designs already deployed on other applicators to validate the general approach, and consulted in-house maintenance staff with machining and millwright experience as well as the fabricating machinist and dispense system vendor to confirm sizing decisions — this precedent and collective expertise gave confidence that the design was adequate without requiring formal stress analysis given the negligible loading." }
+      { type: "text", content: "The bracket is a two-piece design: a ring piece that bolts concentrically onto the sensor — which is itself a large ring that surrounds the applicator — and a flat bar that bridges perpendicular between the ring piece and a bolted connection directly into the applicator body, forming an L-configuration. This split geometry meant each piece could be machined from standard stock on a 3-axis machine with simple setups, rather than requiring a complex multi-axis operation or custom profile to produce as a single part — directly reducing machining cost and lead time while retaining full functionality and ease of assembly." }
+      { type: "text", content: "A fixed bolted mount was chosen over a slotted adjustable design deliberately. The 60mm standoff is fully determined by the bracket geometry, so field adjustment offers no functional benefit — and slotted holes introduce positional play that accumulates over time under the vibration of the machine cycle and thermal cycling near the heater, which would degrade sensor reading consistency. A fixed mount means any installation error is caught at assembly, not discovered later in production." }
+      { type: "text", content: "Mild steel was selected for cost and same-day stock availability. No weight, corrosion, or strength-to-weight constraint justified aluminum's cost premium, and steel's higher stiffness for the same cross-section better resists long-term deflection and thermal expansion drift near the heater." }
+      { type: "text", content: "result" }
+      { type: "text", content: "Bracket designed and fabricated within 24 hours for approximately $1,200 CAD. Sensor was mounted to the applicator clearing all heater and shroud clearances, sitting at the required 60mm standoff in a stable, repeatable position well within the ±5mm and ±5° tolerance. The integration job closed on schedule, protecting a high-value production program from a costly delay." }
+      { type: "images", images: [quadrupedImg1, quadrupedImg2], height: 300, gap: 20 },
+      { type: "images", images: [quadrupedImg3, quadrupedImg4], height: 300, gap: 20 },
+    ],
+  },
+  {
     id: "cycloidal-actuator",
     title: "internal cycloidal actuator",
     date: "2025",
