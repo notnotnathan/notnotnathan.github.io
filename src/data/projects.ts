@@ -63,7 +63,7 @@ export const projects: ProjectData[] = [
   },
   {
     id: "tmmc-tbp",
-    title: "productivity improvement project - tmmc",
+    title: "productivity improvement project",
     date: "2026",
     featured: true,
     coverImage: tbpCover,
@@ -92,7 +92,7 @@ export const projects: ProjectData[] = [
   },
   {
     id: "coherix-bracket",
-    title: "sealer vision mounting bracket - tmmc",
+    title: "sealer vision mounting bracket",
     date: "2026",
     featured: true,
     coverImage: quadrupedImg0,
