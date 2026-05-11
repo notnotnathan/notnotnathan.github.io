@@ -23,7 +23,7 @@ export const experiences: ExperienceData[] = [
     date: "jan 2026 – apr 2026",
     summary: "engineering analyst co-op at toyota's cambridge, ontario plant.",
     bullets: [
-      "led a tbp-driven continuous improvement project targeting shellbody sealer vision system downtime, reducing coherix-related equipment fault time by approximately 70%. applied structured problem-solving to identify root causes and presented results to senior management.",
+      "led a tbp-driven continuous improvement project targeting shellbody sealer vision system downtime, reducing coherix-related equipment fault time by approximately ~86%. applied structured problem-solving to identify root causes and presented results to senior management.",
       "directed integration of a torque gun system to accommodate two vehicle models with different requirements. coordinated between production, maintenance, contractors, and vendors while overseeing weekend trial runs and commissioning involving plc logic and system validation.",
       "audited and optimized weld scheduling parameters to reduce weld spatter, eliminate weld separation defects, and decrease welding tip replacement frequency — contributing to estimated annual cost and material savings.",
       "conducted time studies for overcycle processes and implemented improvements that reduced unnecessary robot movement and increased process catch-up capability.",
