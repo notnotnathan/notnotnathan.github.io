@@ -59,6 +59,32 @@ export const projects: ProjectData[] = [
     ],
   },
   {
+    id: "tmmc-tbp",
+    title: "productivity improvement project - tmmc",
+    date: "2026",
+    featured: true,
+    coverImage: quadrupedImg0,
+    summary: "86% reduction in Coherix-related equipment fault time on the RAV4 left front door hemming adhesive sealer process",
+    bullets: [
+      "designed 12 dof quadruped using hobby rc servos.",
+      "optimized design and tolerances for 3d printing and assembly.",
+      "hierarchical control architecture using custom 12-channel stm32 driver for low-level servo control, raspberry pi for high-level perception, mapping, and motion planning, with lidar for environmental sensing",
+      "currently working on custom servo driver",
+    ],
+    blocks: [
+      { type: "text", content: "problem" },
+      { type: "text", content: "Shellbody is a critical upstream process — it builds door, hatch, and hood panels for the Final Line. When Shellbody stops, Install and Final run short on parts, directly impacting North Weld's overall production output. Coherix vision system faults on the 311D front door outer hemming sealer were contributing 50.7 minutes of equipment fault time per shift on the RAV4 left front door hemming adhesive sealer process, making it the highest priority target within a broader 576 minute total fault time problem. The goal was to drive Coherix-related fault time to zero."},
+      { type: "text", content: "approach"},
+      { type: "text", content: "Started by sifting through recorded fault logs across all shellbody equipment — a lengthy data cleaning process in Excel to filter false faults, identify top contributors, and narrow scope to the highest impact equipment. Once the 311D Outer was prioritized, moved to the floor to observe the live process and pull raw fault recordings on that specific station, combining direct observation with fault data to build a root cause hypothesis."},
+      { type: "text", content: "Root causes fell into four categories: sealer contamination physically obstructing the sensor and corrupting scan data with noise, inconsistent datuming causing the robot to dispense at incorrect positions relative to the part, an incorrect robot teach producing a poor bead profile, and Coherix teach parameters not trained to correctly pass or fail the actual bead being produced. The contamination and robot teach issues were foundational — without a clean sensor and a good repeatable bead to reference, any Coherix reteach would just be training the system to accept a bad result."},
+      { type: "text", content: "Countermeasures were developed and evaluated against quality, safety, productivity, and cost. Magnetic fixturing was explored to improve datuming consistency but rejected due to Class A surface damage risk. Equipment cleaning, robot reteach, and Coherix reteach were all implemented. Worked cross-functionally throughout — led maintenance through the robot teaching process, directing the work while they operated the pendant as the trained and responsible party, personally performed the initial equipment cleaning and Coherix reteach to establish the process, then transferred that knowledge to maintenance and production as the long-term owners. Built a troubleshooting flowchart from scratch and conducted hands-on training with maintenance team members on when and why to perform a reteach, supplemented by vendor-provided reteach documentation."},
+      { type: "text", content: "Results were presented formally to senior management as a complete TBP submission."},
+      { type: "text", content: "result" },
+      { type: "text", content: "Coherix-related equipment fault time reduced by 86%, from 50.7 minutes per shift to near zero. Normalized shellbody equipment fault time dropped from 576 minutes to 436 minutes following the first countermeasures, with further reduction after the robot reteach. Standardization activities including a Coherix troubleshooting flowchart, QCNS reteach workflow integration, and shift startup procedure updates were initiated to sustain the gains beyond the co-op term."},
+
+    ],
+  },
+  {
     id: "coherix-bracket",
     title: "Coherix Sealer Vision System — Sensor Mounting Bracket | TMMC",
     date: "2026",
