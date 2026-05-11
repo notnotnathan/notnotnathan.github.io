@@ -66,10 +66,9 @@ export const projects: ProjectData[] = [
     coverImage: quadrupedImg0,
     summary: "say hello to my little friend",
     bullets: [
-      "designed 12 dof quadruped using hobby rc servos.",
-      "optimized design and tolerances for 3d printing and assembly.",
-      "hierarchical control architecture using custom 12-channel stm32 driver for low-level servo control, raspberry pi for high-level perception, mapping, and motion planning, with lidar for environmental sensing",
-      "currently working on custom servo driver",
+      "Last-minute bracket design and fabrication closed out in under 24 hours for ~$1,200 CAD",
+      "Two-piece mild steel design enabled 3-axis machining from standard stock, minimizing cost and lead time without sacrificing function",
+      "Sensor mounted at required 60mm standoff, clearing all applicator constraints and ready for weekend production integration",
     ],
     blocks: [
       { type: "text", content: "problem" }
