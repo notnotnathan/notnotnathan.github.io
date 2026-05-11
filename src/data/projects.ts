@@ -77,7 +77,7 @@ export const projects: ProjectData[] = [
       "Presented full TBP to senior management",
     ],
     blocks: [
-      { type: "images", images: [tbpFull], height: 300, gap: 20 },
+      { type: "images", images: [tbpFull]},
       { type: "text", content: "problem" },
       { type: "text", content: "Shellbody is a critical upstream process — it builds door, hatch, and hood panels for the Final Line. When Shellbody stops, Install and Final run short on parts, directly impacting North Weld's overall production output. Coherix vision system faults on the 311D front door outer hemming sealer were contributing 50.7 minutes of equipment fault time per shift on the RAV4 left front door hemming adhesive sealer process, making it the highest priority target within a broader 576 minute total fault time problem. The goal was to drive Coherix-related fault time to zero."},
       { type: "text", content: "approach"},
