@@ -88,7 +88,7 @@ export const projects: ProjectData[] = [
   },
   {
     id: "coherix-bracket",
-    title: "Coherix Sealer Vision System — Sensor Mounting Bracket | TMMC",
+    title: "sealer vision mounting bracket - tmmc",
     date: "2026",
     featured: true,
     coverImage: quadrupedImg0,
