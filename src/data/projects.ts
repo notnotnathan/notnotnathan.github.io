@@ -67,11 +67,10 @@ export const projects: ProjectData[] = [
     date: "2026",
     featured: true,
     coverImage: tbpCover,
-    summary: "86% reduction in Coherix-related equipment fault time on the RAV4 left front door hemming adhesive sealer process",
+    summary: "86% reduction in sealer vision equipment fault time on shellbody sealer process",
     bullets: [
       "86% reduction in Coherix fault time on RAV4 left front door hemming adhesive sealer",
       "Root caused via Excel fault log analysis → floor observation → cross-functional RCA",
-      "Countermeasures: equipment cleaning, robot reteach, Coherix reteach — magnetic fixturing rejected (Class A surface risk)",
       "Led maintenance through robot teach, personally established cleaning and Coherix reteach process, then handed off to production/maintenance",
       "Built troubleshooting flowchart, trained maintenance on reteach procedure, initiated QCNS and startup procedure updates",
       "Presented full TBP to senior management",
