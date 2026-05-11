@@ -60,11 +60,11 @@ export const projects: ProjectData[] = [
   },
   {
     id: "coherix-bracket",
-    title: "coherix sealer vision system — sensor sounting bracket",
+    title: "Coherix Sealer Vision System — Sensor Mounting Bracket | TMMC",
     date: "2026",
     featured: true,
     coverImage: quadrupedImg0,
-    summary: "say hello to my little friend",
+    summary: "Designed, fabricated, and installed in under 24 hours — because the weekend doesn't wait.",
     bullets: [
       "Last-minute bracket design and fabrication closed out in under 24 hours for ~$1,200 CAD",
       "Two-piece mild steel design enabled 3-axis machining from standard stock, minimizing cost and lead time without sacrificing function",
