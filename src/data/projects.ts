@@ -121,7 +121,7 @@ export const projects: ProjectData[] = [
     date: "2025",
     featured: true,
     coverImage: cycloidalImg0,
-    summary: "this spins",
+    summary: "Full acuator design from first principles: custom-wound BLDC motor, cycloidal gearbox, and FOC control integration",
     bullets: [
       "engineered a compact 7:1 cycloidal actuator for dynamic robotic joints at low cost.",
       "performed iterative design on gear and housing tolerances to reduce backlash while preserving backdrivability and achieving smooth, reliable motion.",
