@@ -92,7 +92,7 @@ const ProjectDetail = ({ project }: { project: ProjectData }) => {
           {project.blocks.map((block: Block, i: number) => {
             if (block.type === "text") {
               return (
-                <p key={i} className="text-base text-foreground/80">
+                <p key={i} className="text-sm text-foreground/80">
                   {block.content}
                 </p>
               );
