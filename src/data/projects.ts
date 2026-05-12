@@ -157,6 +157,7 @@ export const projects: ProjectData[] = [
       "built a functional 2d gantry pancake printer integrating tetrix structural components, lego ev3 motors, and custom 3d-printed adapters.",
       "designed a cad assembly in solidworks, ensuring mechanical fitments and reducing prototyping time.",
       "programmed motion routines in c++, achieving precise, synchronized xy motion for accurate batter extrusion.",
+      "see detailed report [here](/Pancake Printer ME101 Course Project Report.pdf)",
     ],
     blocks: [],
   },
