@@ -7,6 +7,7 @@
 
 import tbpCover from "@/assets/tbp-cover.png";
 import tbpFull from "@/assets/TBP.jpg";
+import bracketCAD from "@/assets/coherix_bracket_cad.png";
 import statorWindingConfig from "@/assets/stator_winding.jpg";
 import quadrupedImg0 from "@/assets/quadruped0.png";
 import quadrupedImg1 from "@/assets/quadruped1.png";
@@ -94,7 +95,7 @@ export const projects: ProjectData[] = [
     title: "sealer vision mounting bracket",
     date: "2026",
     featured: true,
-    coverImage: quadrupedImg0,
+    coverImage: bracketCAD,
     summary: "Designed, fabricated, and installed in under 24 hours — because the weekend doesn't wait.",
     bullets: [
       "Last-minute bracket design and fabrication closed out in under 24 hours for ~$1,200 CAD",
@@ -111,8 +112,6 @@ export const projects: ProjectData[] = [
       { type: "text", content: "Mild steel was selected for cost and same-day stock availability. No weight, corrosion, or strength-to-weight constraint justified aluminum's cost premium, and steel's higher stiffness for the same cross-section better resists long-term deflection and thermal expansion drift near the heater." },
       { type: "text", content: "result" },
       { type: "text", content: "Bracket designed and fabricated within 24 hours for approximately $1,200 CAD. Sensor was mounted to the applicator clearing all heater and shroud clearances, sitting at the required 60mm standoff in a stable, repeatable position well within the ±5mm and ±5° tolerance. The integration job closed on schedule, protecting a high-value production program from a costly delay." },
-      { type: "images", images: [quadrupedImg1, quadrupedImg2], height: 300, gap: 20 },
-      { type: "images", images: [quadrupedImg3, quadrupedImg4], height: 300, gap: 20 },
     ],
   },
   {
