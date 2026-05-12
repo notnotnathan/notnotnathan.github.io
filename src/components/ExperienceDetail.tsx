@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { ExperienceData } from "@/data/experiences";
 import { Block } from "@/data/projects";
-import InlineText from "@/components/InlineText";
+import InlineText from "@/components/InlineText.tsx";
 
 const useIsMobile = () => {
   const [isMobile, setIsMobile] = useState(() => window.innerWidth < 640);

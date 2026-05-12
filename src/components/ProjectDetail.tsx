@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { ProjectData, Block } from "@/data/projects";
+import InlineText from "@/components/InlineText.tsx";
 
 const useIsMobile = () => {
   const [isMobile, setIsMobile] = useState(() => window.innerWidth < 640);
@@ -61,7 +62,7 @@ const ProjectDetail = ({ project }: { project: ProjectData }) => {
           </div>
           <ul className="space-y-2 text-base text-muted-foreground list-none w-full">
             {project.bullets.map((b, i) => (
-              <li key={i}><span className="text-muted-foreground/50 mr-2">{">"}</span>{b}</li>
+              <li key={i}><span className="text-muted-foreground/50 mr-2">{">"}</span><InlineText content={b} /></li>
             ))}
           </ul>
         </div>
@@ -71,7 +72,7 @@ const ProjectDetail = ({ project }: { project: ProjectData }) => {
             <p className="text-foreground text-xl font-bold">{project.summary}</p>
             <ul className="space-y-2 text-base text-muted-foreground list-none">
               {project.bullets.map((b, i) => (
-                <li key={i}><span className="text-muted-foreground/50 mr-2">{">"}</span>{b}</li>
+                <li key={i}><span className="text-muted-foreground/50 mr-2">{">"}</span><InlineText content={b} /></li>
               ))}
             </ul>
           </div>
@@ -93,7 +94,7 @@ const ProjectDetail = ({ project }: { project: ProjectData }) => {
             if (block.type === "text") {
               return (
                 <p key={i} className="text-sm text-foreground/80">
-                  {block.content}
+                  <InlineText content={block.content} />
                 </p>
               );
             }
