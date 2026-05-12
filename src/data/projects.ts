@@ -24,6 +24,7 @@ import cycloidalImg3 from "@/assets/gearbox3.png";
 import cycloidalImg4 from "@/assets/gearbox4.png";
 import cycloidalImg5 from "@/assets/gearbox5.png";
 import pancakeImg from "@/assets/pancake-printer.png";
+import pancakeCover from "@/assets/realPancakePrinter.png";
 import ft36 from "@/assets/freetime/36.jpg";
 import ft3 from "@/assets/freetime/3.jpg";
 import ft4 from "@/assets/freetime/4.jpg";
@@ -150,7 +151,7 @@ export const projects: ProjectData[] = [
     title: "pancake printer",
     date: "2025",
     featured: true,
-    coverImage: pancakeImg,
+    coverImage: pancakeCover,
     summary: "pancake printer for class project",
     bullets: [
       "built a functional 2d gantry pancake printer integrating tetrix structural components, lego ev3 motors, and custom 3d-printed adapters.",
