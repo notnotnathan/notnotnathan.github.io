@@ -59,7 +59,7 @@ const ExperienceDetail = ({ experience }: { experience: ExperienceData }) => {
           {experience.blocks.map((block: Block, i: number) => {
             if (block.type === "text") {
               return (
-                <p key={i} className="text-base text-foreground/80">
+                <p key={i} className="text-sm text-foreground/80">
                   <InlineText content={block.content} />
                 </p>
               );
