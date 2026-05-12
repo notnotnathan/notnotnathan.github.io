@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { ExperienceData } from "@/data/experiences";
 import { Block } from "@/data/projects";
+import InlineText from "@/components/InlineText";
 
 const useIsMobile = () => {
   const [isMobile, setIsMobile] = useState(() => window.innerWidth < 640);
@@ -48,7 +49,7 @@ const ExperienceDetail = ({ experience }: { experience: ExperienceData }) => {
       <div className="space-y-4">
         <ul className="space-y-2 text-base text-muted-foreground list-none">
           {experience.bullets.map((b, i) => (
-            <li key={i}><span className="text-muted-foreground/50 mr-2">{">"}</span>{b}</li>
+            <li key={i}><span className="text-muted-foreground/50 mr-2">{">"}</span><InlineText content={b} /></li>
           ))}
         </ul>
       </div>
@@ -59,7 +60,7 @@ const ExperienceDetail = ({ experience }: { experience: ExperienceData }) => {
             if (block.type === "text") {
               return (
                 <p key={i} className="text-base text-foreground/80">
-                  {block.content}
+                  <InlineText content={block.content} />
                 </p>
               );
             }
