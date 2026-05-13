@@ -19,7 +19,7 @@ export interface ExperienceData {
 
 export const experiences: ExperienceData[] = [
   {
-    title: "toyota motor manufacturing canada",
+    title: "engineering @ toyota motor manufacturing canada",
     date: "jan 2026 – apr 2026",
     summary: "engineering analyst co-op at toyota's cambridge, ontario plant.",
     bullets: [
@@ -33,7 +33,7 @@ export const experiences: ExperienceData[] = [
     ],
   },
   {
-    title: "general motors",
+    title: "engineering @ general motors",
     date: "may 2025 – aug 2025",
     summary: "industrial engineering co-op at gm's oshawa assembly plant on the chevrolet silverado line.",
     bullets: [
