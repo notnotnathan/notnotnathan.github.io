@@ -65,7 +65,7 @@ export const projects: ProjectData[] = [
   },
   {
     id: "tmmc-tbp",
-    title: "productivity improvement project",
+    title: "toyota productivity improvement",
     date: "2026",
     featured: true,
     coverImage: tbpCover,
@@ -93,7 +93,7 @@ export const projects: ProjectData[] = [
   },
   {
     id: "coherix-bracket",
-    title: "sealer vision mounting bracket",
+    title: "laser sensor mounting bracket",
     date: "2026",
     featured: true,
     coverImage: bracketCAD,
@@ -121,11 +121,11 @@ export const projects: ProjectData[] = [
     date: "2025",
     featured: true,
     coverImage: cycloidalImg0,
-    summary: "Full acuator design from first principles: custom-wound BLDC motor, cycloidal gearbox, and FOC control integration",
+    summary: "from-scratch electromechanical actuator build — custom-wound BLDC motor, cycloidal gearbox, and a hard lesson in manufacturing precision",
     bullets: [
-      "engineered a compact 7:1 cycloidal actuator for dynamic robotic joints at low cost.",
-      "performed iterative design on gear and housing tolerances to reduce backlash while preserving backdrivability and achieving smooth, reliable motion.",
-      "currently having components fabricated",
+      "designed and built a full integrated cycloidal actuator from scratch — custom-wound 36s42p outrunner BLDC, internal cycloidal gearbox, and encoder, modelled in SolidWorks.",
+      "prototype validated motor and gearbox concept before PLA creep caused tolerance stack-up and gearbox seizure — failure mode correctly diagnosed.",
+      "concluded cycloidal precision requirements exceed current manufacturing access; pivoting to planetary gearbox design.",
     ],
     blocks: [
       { type: "text", content: "motivation" },
@@ -136,14 +136,13 @@ export const projects: ProjectData[] = [
       { type: "text", content: "The intended controller was a Moteus FOC driver for closed-loop torque and position control — the right choice for a compliant legged actuator — but firmware configuration proved a persistent blocker and remains a work in progress." },
       { type: "text", content: "The prototype was printed in PLA and assembled with tight tolerances to validate fit and function. It spun successfully under load initially, but over time plastic creep caused dimensional drift — air gaps became interferences and the gearbox seized. The failure mode was well understood: PLA is fundamentally unsuitable for precision mechanisms under sustained load, and the design was always intended to be reproduced in metal." },
       { type: "text", content: "Current Status & Path Forward" },
-      { type: "text", content: "The metal version requires a significant redesign for manufacturability — 3D print-friendly geometry and machinable geometry are very different, and features like thin walls, integrated snap fits, and non-standard hole patterns that work in plastic don't translate directly to machining. The redesign, along with budget and access to machining, is the remaining gap. Moteus firmware integration is also ongoing."},
+      { type: "text", content: "Cycloidal drives are elegant in theory but unforgiving in practice — the low backlash and torque density advantages depend entirely on tight manufacturing tolerances at the disk-to-pin interface. Without precision machining, those benefits don't materialize, and a sloppy cycloidal gearbox ends up worse than a well-executed planetary. The 3D printed prototype confirmed the concept but also confirmed the limitation: this mechanism demands more precision than I can currently achieve with available tools and budget. The next iteration will be a planetary gearbox — simpler geometry, more forgiving tolerances, more accessible to manufacture, and still more than capable for a quadruped joint application." },
       { type: "text", content: "what it demonstrates" },
       { type: "text", content: "End-to-end electromechanical system design — CAD, motor theory, winding, gearbox geometry, and control system selection — built entirely from personal initiative with no coursework requirement or deadline. The prototype worked, the failure mode was diagnosed correctly, and the path to a functional metal version is clear."},
       { type: "images", images: [cycloidalImg1, cycloidalImg2], height: 300, gap: 20 },
       { type: "images", images: [cycloidalImg3, cycloidalImg4], height: 300, gap: 20 },
       { type: "images", images: [cycloidalImg5, realCycloidalImg1], height: 300, gap: 20 },
       { type: "images", images: [realCycloidalImg2, realCycloidalImg3], height: 300, gap: 20 },
-      
     ],
   },
   {
