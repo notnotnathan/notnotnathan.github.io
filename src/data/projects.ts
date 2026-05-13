@@ -151,12 +151,12 @@ export const projects: ProjectData[] = [
     date: "2025",
     featured: true,
     coverImage: pancakeCover,
-summary: "a 2-axis gantry robot that prints pancake batter into user-selected shapes — built from Tetrix, Lego EV3, 3D printed parts, and a syringe",
+summary: "a 2-axis gantry robot that prints pancake batter into user-selected shapes",
 bullets: [
-  "designed and built a functional 2-axis gantry pancake printer integrating Tetrix structural components, Lego EV3 motors, laser-cut rails, and custom 3D printed adapters.",
-  "rack and pinion extrusion replaced mid-project with a lead screw after torque requirements exceeded what the rack could deliver — cleaner and more consistent batter output.",
-  "programmed in C++ with motor encoder-based position tracking, colour sensor shape selection, manual mode, virtual and physical movement limits, and automatic nozzle zeroing to prevent positional drift.",
-  "all seven engineering specifications verified at live demonstration — dimensions, mass, printable area (456 cm²), dispensable volume (90 mL), consecutive uses, ease of operation, and structural integrity.",
+  "built a functional 2-axis gantry pancake printer using Tetrix, Lego EV3, laser-cut rails, and custom 3D printed parts.",
+  "replaced rack and pinion extrusion with a lead screw mid-project after torque requirements exceeded what the rack could deliver.",
+  "programmed in C++ with encoder-based positioning, colour sensor shape selection, manual mode, and automatic nozzle zeroing.",
+  "all seven engineering specifications verified at live demonstration including 456 cm² print area and 90 mL dispensable volume.",
   "see detailed report [here](/Pancake Printer ME101 Course Project Report.pdf)",
 ],
 blocks: [
