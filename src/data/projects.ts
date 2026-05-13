@@ -124,7 +124,7 @@ export const projects: ProjectData[] = [
     summary: "from-scratch electromechanical actuator build — custom-wound BLDC motor, cycloidal gearbox, and a hard lesson in manufacturing precision",
     bullets: [
       "designed and built a full integrated cycloidal actuator from scratch — custom-wound 36s42p outrunner BLDC, internal cycloidal gearbox, and encoder, modelled in SolidWorks.",
-      "prototype validated motor and gearbox concept before PLA creep caused tolerance stack-up and gearbox seizure — failure mode correctly diagnosed.",
+      "prototype validated motor and gearbox concept before PLA creep caused tolerance stack-up and gearbox seizure.",
       "concluded cycloidal precision requirements exceed current manufacturing access; pivoting to planetary gearbox design.",
     ],
     blocks: [
