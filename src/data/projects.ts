@@ -25,6 +25,7 @@ import cycloidalImg4 from "@/assets/gearbox4.png";
 import cycloidalImg5 from "@/assets/gearbox5.png";
 import pancakeImg from "@/assets/pancake-printer.png";
 import pancakeCover from "@/assets/realPancakePrinter.png";
+import waterRocketCover from "@/assets/waterRocketReal.png";
 import ft36 from "@/assets/freetime/36.jpg";
 import ft3 from "@/assets/freetime/3.jpg";
 import ft4 from "@/assets/freetime/4.jpg";
@@ -144,13 +145,40 @@ export const projects: ProjectData[] = [
       { type: "text", content: "result" },
       { type: "text", content: "Bracket designed and fabricated within 24 hours for approximately $1,200 CAD. Sensor was mounted to the applicator clearing all heater and shroud clearances, sitting at the required 60mm standoff in a stable, repeatable position well within the ±5mm and ±5° tolerance. The integration job closed on schedule, protecting a high-value production program from a costly delay." },
     ],
+    },
+    {
+    id: "pancake-printer",
+    title: "pancake printer",
+    date: "2025",
+    featured: true,
+    coverImage: pancakeImg,
+    summary: "a 2-axis gantry robot that prints pancake batter into user-selected shapes — built from Tetrix, Lego EV3, 3D printed parts, and a syringe",
+    bullets: [
+      "built a functional 2-axis gantry pancake printer using Tetrix, Lego EV3, laser-cut rails, and custom 3D printed parts.",
+      "replaced rack and pinion extrusion with a lead screw mid-project after torque requirements exceeded what the rack could deliver.",
+      "programmed in C++ with encoder-based positioning, colour sensor shape selection, manual mode, and automatic nozzle zeroing.",
+      "all seven engineering specifications verified at live demonstration including 456 cm² print area and 90 mL dispensable volume.",
+      "see detailed report [here](/Pancake Printer ME101 Course Project Report.pdf)",
+    ],
+    blocks: [
+      { type: "text", content: "problem" },
+      { type: "text", content: "The goal was to build a robot that could automatically extrude pancake batter into custom shapes on a 2D plane, weighing under 6kg and fitting within 50×50×40cm. The core challenge was integrating three independent subsystems — a 2-axis gantry, a batter extrusion mechanism, and a user interface — using constrained hardware: Lego EV3 motors and sensors, Tetrix structural components, and custom fabricated parts." },
+      { type: "text", content: "approach" },
+      { type: "text", content: "Three conceptual designs were evaluated through a decision-making matrix: a rack and pinion gantry, a wheel and rail gantry, and a free-roaming car. The car design was eliminated for accuracy and maintenance reasons — without fixed axes, positional error compounds quickly. The wheel and rail gantry was selected for its accuracy, modularity, and user interface flexibility via the EV3 brick screen and buttons." },
+      { type: "text", content: "The extrusion system went through a critical mid-project redesign. The original rack and pinion mechanism was tested but couldn't generate enough torque to push viscous batter through the syringe — rack and pinion systems are suited for high-speed low-torque applications, not the sustained high-torque requirement of batter extrusion. It was replaced with a lead screw, which converts motor rotation to linear force far more effectively, producing cleaner and more consistent extrusion." },
+      { type: "text", content: "The gantry rails were laser cut from 1/8-inch wood rather than 3D printed — the strips were too long to fit on a print bed, and laser cutting was faster and cheaper for flat uniform geometry. 3D printing was reserved for the brackets, mounts, and adapters that required 3D geometry incompatible with laser cutting. PLA was used throughout as no structural load case demanded stronger materials like PETG. Tolerances for friction fits and loose fits were dialled in iteratively through test prints." },
+      { type: "text", content: "Physical bumpers were added to both axes as hard stops — not just for safety, but as a zeroing mechanism. On each reset, the nozzle drives into the bumpers to re-establish a known origin, correcting any positional drift accumulated from motor encoder error over consecutive prints. Virtual limits in software provided a redundant layer of protection." },
+      { type: "text", content: "The software was structured around a core move_Both() function handling simultaneous XY movement and extrusion toggling based on defined coordinate bounds. All shape functions — square, triangle, spiral — were built on top of this abstraction, keeping each shape to a few lines of coordinate calls. The original face shape was replaced with a spiral because the face required repeated extrusion start/stop cycles, and batter drip made non-continuous shapes unreliable. The spiral's continuous extrusion path played to the system's strengths." },
+      { type: "text", content: "result" },
+      { type: "text", content: "All seven engineering specifications were successfully verified at live demonstration. The robot printed three consecutive shapes without failure, fit within the dimensional and mass constraints, dispensed 90 mL of batter (exceeding the 75 mL minimum), and achieved a printable area of 456 cm² against a 225 cm² requirement. An uninvolved student successfully operated both modes with minimal instruction, confirming the ease-of-use specification. Remaining limitations were centred on batter viscosity control and extrusion drip — identified as the primary target for future refinement." },
+    ],
   },
   {
     id: "timer-parachute",
     title: "tommy timer parachute",
     date: "2024",
     featured: false,
-    coverImage: pancakeCover,
+    coverImage: waterRocketCover,
     summary: "mechanically timed parachute deployment nosecone for a 2L water rocket — no electronics, no batteries, just a wind-up toy timer and a plastic spring",
     bullets: [
       "designed and built a modular 3D printed nosecone attachment with an internal parachute deployment system compatible with any standard 2L bottle.",
