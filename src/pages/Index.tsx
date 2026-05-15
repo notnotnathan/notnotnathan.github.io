@@ -203,13 +203,15 @@ const Index = () => {
         {/* Contact */}
         <section className="space-y-1">
           <p className="text-muted-foreground">
+            <a href="/NathanMa_Resume2026.pdf" target="_blank" rel="noopener noreferrer" className="hover:underline">resume</a>
+          </p>
+          <p className="text-muted-foreground">
             <a href="https://linkedin.com/in/nathanma0" className="hover:underline">linkedin.com/in/nathanma0</a>
           </p>
           <p className="text-muted-foreground">
             <a href="mailto:n23ma@uwaterloo.ca" className="hover:underline">n23ma@uwaterloo.ca</a>
           </p>
         </section>
-      </div>
 
       {/* ── Detail Dialog ── */}
       <Dialog open={!!selected} onOpenChange={(open) => !open && setSelected(null)}>
